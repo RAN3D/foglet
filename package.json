@@ -1,0 +1,27 @@
+{
+  "name": "foglet",
+  "version": "1.0.0",
+  "description": "Fog Computing in Browsers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.com/folkvir/foglet.git"
+  },
+  "keywords": [
+    "webRTC"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bower": "^1.7.9",
+    "less": "^2.7.1",
+    "open": "0.0.5",
+    "spray-wrtc": "0.0.2"
+  },
+  "devDependencies": {
+    "zombie": "^4.2.1"
+  }
+}
