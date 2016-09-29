@@ -2,59 +2,72 @@
 <html>
 <head>
   <title>Foglet</title>
-  <script type="text/javascript" src="node_modules/spray-wrtc/build/spray-wrtc.bundle.debug.js" ></script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./../node_modules/bootstrap/dist/css/bootstrap-theme.min.css" />
+  <script type="text/javascript" src="./../node_modules/jquery/dist/jquery.min.js" > </script>
+  <script type="text/javascript" src="./../node_modules/bootstrap/dist/js/bootstrap.min.js" > </script>
+  <script type="text/javascript" src="./../node_modules/spray-wrtc/build/spray-wrtc.bundle.debug.js" ></script>
+
+  <script type="text/javascript" src="./test.js" ></script>
 </head>
+<style>
+  .firstPart,.secondPart,.thirdPart,.fourthPart{
+    border:1px solid grey;
+    padding:10px;
+    margin:10px;
+  }
+</style>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
 
-<script>
-var Spray = require('spray-wrtc');
+        <div class="firstPart">
+          <form class="form-inline" action="javascript:createSpray($('#pseudo').val());">
+            <div class="form-group">
+              <label for="pseudo">Pseudo</label>
+              <input type="text" class="form-control" id="pseudo" placeholder="Jane Doe" />
+            </div>
+            <button type="submit" class="btn btn-default" >Connection</button>
+          </form>
+          <div class="result"></div>
+        </div>
 
-// #0 initialize the membership protocol with a unique identifier and WebRTC
-// options. Spray allows options.deltatime (interval of time between the
-// proactive exchanges) and option.timeout.
-var spray = new Spray("pseudo........", {});
+        <div class="secondPart">
+          <form class="form-inline" action="javascript:makeOffer();">
+            <div class="form-group">
+              <label for="makeOffer">Make Offer</label>
+              <button type="submit" id="makeOffer" class="btn btn-default" >Make Offer</button>
+            </div>
 
-var id = spray.ID;
+          </form>
+          <div class="resultOffer"></div>
+        </div>
 
+        <div class="thirdPart">
+          <form class="form-inline" action="javascript:connecToTicket($('#acceptOffer').val());">
+            <div class="form-group">
+              <label for="ticket">Accept an offer </label>
+              <input type="text" class="form-control" id="acceptOffer" placeholder="xxxxxxx" />
+            </div>
+            <button type="submit" class="btn btn-default" >Accept</button>
+          </form>
+          <div class="resultAccept"></div>
+        </div>
 
-// #A setup the first connection (@joining peer) - first step
-spray.launch( function(offerTicket){
-  console.log(offerTicket);
-});
+        <div class="fourthPart">
+          <form class="form-inline" action="javascript:handshake();">
+            <button type="submit" class="btn btn-default" >Handshake</button>
+          </form>
+        </div>
 
-// #B setup the first connection (@known peer) - second step
-spray.answer(id, function(stampedTicket){
-  return "toto";
-});
+      </div>
+    </div>
 
-// #C setup the first connection (@joining peer) - third step
-spray.handshake(stampedTicket);
+  </div>
 
-// #1 check if the network is ready to emit messages with callback
-spray.ready( function(){
-  console.log('I can send messages');
-});
-
-// #2 get a set of links to communicate with the neighborhood. The parameter k
-// is the number of neighbors requested. The membership protocol provides as
-// much peer as possible to meet the request.
-var links = spray.getPeers(k);
-
-// #3 events
-// #A emitted when the network state change; the possible states are
-spray.on('statechange', function(state){
-  if (state==='connect') {console.log('I am connected!');};
-  if (state==='partial') {console.log('Temporary state. Hopefully... ');};
-  if (state==='disconnect') {console.log('I am disconnected');};
-});
-
-// #B emitted when the membership protocol receives a message. It requires that
-// the message carries a 'protocol' property. For instance, Spray handles the
-// event 'spray-receive'. The arguments are the socket from which the message is
-// received, and the message itself.
-spray.on('spray-receive', function(socket, message){
-  console.log('I received a message for the protocol '+ message.protocol);
-  socket.send(new ReponseMessageExample('Thank you!'));
-});
-
-</script>
+</body>
 </html>

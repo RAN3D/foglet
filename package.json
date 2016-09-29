@@ -16,7 +16,9 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "bower": "^1.7.9",
+    "jquery": "^3.1.1",
     "less": "^2.7.1",
     "open": "0.0.5",
     "spray-wrtc": "0.0.2"
