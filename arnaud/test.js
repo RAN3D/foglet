@@ -9,7 +9,7 @@ function createSpray(pseudo){
   // #0 initialize the membership protocol with a unique identifier and WebRTC
   // options. Spray allows options.deltatime (interval of time between the
   // proactive exchanges) and option.timeout.
-  spray = new Spray(pseudo, {});
+  spray = new Spray(pseudo, {iceServers : [{url: null}]});
   id = spray.ID;
 
   // #1 check if the network is ready to emit messages with callback
@@ -21,7 +21,7 @@ function createSpray(pseudo){
   // #2 get a set of links to communicate with the neighborhood. The parameter k
   // is the number of neighbors requested. The membership protocol provides as
   // much peer as possible to meet the request.
-  var links = spray.getPeers(10);
+  var links = spray.getPeers(2);
 
   // #3 events
   // #A emitted when the network state change; the possible states are
@@ -36,8 +36,11 @@ function createSpray(pseudo){
   // event 'spray-receive'. The arguments are the socket from which the message is
   // received, and the message itself.
   spray.on('spray-receive', function(socket, message){
+    console.log("*************************************************");
     console.log('I received a message for the protocol '+ message.protocol);
-    socket.send('Thank you!');
+    console.log(message);
+    //socket.emit("Thank you");
+    console.log("*************************************************");
   });
 
   $(".result").html("<p class='ticketId'>Spray Initialized : "+id+" </p> ");
@@ -68,11 +71,21 @@ function connecToTicket(ticketStringify){
   });
 }
 
-function handshake(){
+function handshake(accepTicket){
   // #C setup the first connection (@joining peer) - third step
-
-  var val = $("#stampedTicket").html();
+  var val = JSON.parse(accepTicket);
   console.log(val);
-  var t = JSON.parse(val);
-  spray.handshake( t );
+  spray.handshake( val );
+}
+
+function sendMessage(message){
+  var message = {
+    message : message ,
+    protocol: "spray-receive"
+  };
+  var links = spray.getPeers(10);
+  console.log(links);
+  for(var socket in links){
+    links[socket].send(message);
+  }
 }

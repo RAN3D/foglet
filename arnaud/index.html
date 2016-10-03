@@ -14,7 +14,7 @@
   <script type="text/javascript" src="./test.js" ></script>
 </head>
 <style>
-  .firstPart,.secondPart,.thirdPart,.fourthPart{
+  .firstPart,.secondPart,.thirdPart,.fourthPart,.fifthPart{
     border:1px solid grey;
     padding:10px;
     margin:10px;
@@ -59,10 +59,27 @@
         </div>
 
         <div class="fourthPart">
-          <form class="form-inline" action="javascript:handshake();">
+          <form class="form-inline" action="javascript:handshake($('#handshake').val());">
+            <div class="form-group">
+              <label for="ticket">Handshake Accept Token : </label>
+              <input type="text" class="form-control" id="handshake" placeholder="xxxxxxx" />
+            </div>
             <button type="submit" class="btn btn-default" >Handshake</button>
           </form>
+          <div class="resultHandshake"></div>
         </div>
+
+        <div class="fifthPart">
+          <form class="form-inline" action="javascript:sendMessage($('#sendMessage').val());">
+            <div class="form-group">
+              <label for="ticket">Send a message : </label>
+              <input type="text" class="form-control" id="sendMessage" placeholder="Hello !" />
+            </div>
+            <button type="submit" class="btn btn-default" >Send Message</button>
+          </form>
+          <div class="resultSend"></div>
+        </div>
+
 
       </div>
     </div>
