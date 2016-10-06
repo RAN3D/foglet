@@ -8,11 +8,27 @@ var signaling = null;
 
 function createOnSignaling(){
   signaling = io.connect("http://localhost:3000");
-  signaling.on("acceptServer",function(){
+  signaling.on("accept",function(offerTicket){
     console.log("**********************");
-    console.log(acceptTicket);
+    console.log(offerTicket);
+    if(signaling == null || spray == null){
+      console.log("Error with signaling or spray !");
+    }else{
+      console.log(">>>>[STATUS] Signaling & spray : OK ! ");
+    }
+    spray.answer(offerTicket,function(stampedTicket){
+      console.log(stampedTicket);
+      signaling.emit("answer",stampedTicket);
+    });
     console.log("**********************");
   });
+
+  signaling.on("handshake",function(stampedTicket){
+    spray.handshake(stampedTicket)
+    signaling.emit("disconnect");
+  });
+
+
 }
 
 function createSpray(pseudo){
@@ -22,16 +38,8 @@ function createSpray(pseudo){
   spray = new Spray(pseudo, {iceServers : [{url: null}]});
   id = spray.ID;
   createOnSignaling();
-  // #1 check if the network is ready to emit messages with callback
-  spray.ready( function(){
-    console.log('I can send messages');
-  }, function(){
-    console.log("I can't send messages");
-  });
-  // #2 get a set of links to communicate with the neighborhood. The parameter k
-  // is the number of neighbors requested. The membership protocol provides as
-  // much peer as possible to meet the request.
-  var links = spray.getPeers(2);
+
+
 
   // #3 events
   // #A emitted when the network state change; the possible states are
@@ -52,7 +60,7 @@ function createSpray(pseudo){
     //socket.emit("Thank you");
     console.log("*************************************************");
   });
-  
+
   $(".result").html("<p class='ticketId'>Spray Initialized : "+id+" </p> ");
 }
 
@@ -60,8 +68,6 @@ function makeOffer(){
   // #A setup the first connection (@joining peer) - first step
   spray.launch( function(offerTicket){
     console.log(offerTicket);
-    ticket=offerTicket;
-    console.log(id);
     signaling.emit("lunch",offerTicket);
     $(".resultOffer").html(JSON.stringify(offerTicket));
     $("#acceptOffer").val(JSON.stringify(offerTicket));
@@ -89,10 +95,16 @@ function handshake(accepTicket){
 }
 
 function sendMessage(message){
+  spray.ready( function(){
+    console.log('I can send messages');
+  });
   var message = {
     message : message ,
     protocol: "spray"
   };
+  // #2 get a set of links to communicate with the neighborhood. The parameter k
+  // is the number of neighbors requested. The membership protocol provides as
+  // much peer as possible to meet the request.
   var links = spray.getPeers(10);
   console.log(links);
   for(var socket in links){
