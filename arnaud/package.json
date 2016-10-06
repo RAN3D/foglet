@@ -10,11 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "causal-broadcast-definition": "^0.1.0",
     "express": "^4.14.0",
     "jquery": "^3.1.1",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
     "spray-wrtc": "0.0.2",
+    "version-vector-with-exceptions": "0.0.5",
     "wrtc": "0.0.61"
   }
 }

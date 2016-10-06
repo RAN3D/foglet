@@ -1,10 +1,14 @@
 var Spray = require('spray-wrtc');
+var VVwE = require("version-vector-with-exceptions");
+var CausalBroadcast = require("causal-broadcast-definition");
+
 var spray = null;
 var id = null;
 var ticket = null;
 var stampedTicket = null;
-
+var vector = null;
 var signaling = null;
+var broadcast = null;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -35,6 +39,11 @@ function createOnSignaling(destination){
 
   signaling.on("handshake",function(stampedTicket){
     spray.handshake(stampedTicket)
+    $(".resultOffer").html("");
+    $(".resultOffer").append("You're now connected to the network !");
+
+
+
     signaling.emit("disconnect");
   });
 
@@ -47,6 +56,20 @@ function createSpray(pseudo){
   // proactive exchanges) and option.timeout.
   spray = new Spray(pseudo, {iceServers : [{url: null}]});
   id = spray.ID;
+  try{
+      vector = new VVwE(42);
+      broadcast = new CausalBroadcast(spray,vector);
+  }catch(e){
+    console.log(e);
+  }
+
+  //
+
+  broadcast.on("receive-message",function(message){
+    console.log("Receive a message from broadcast !");
+    console.log(message);
+  });
+
   createOnSignaling();
 
 
@@ -67,41 +90,25 @@ function createSpray(pseudo){
     console.log("*************************************************");
     console.log('I received a message for the protocol '+ message.protocol);
     console.log(message);
-    //socket.emit("Thank you");
+    console.log(socket);
+      //socket.emit("Thank you");
     console.log("*************************************************");
+  });
+
+  spray.on("spray-message-receive",function(socket,message){
+        $(".resultSend").append("<hr/><p> New message from "+message.id+" : "+message.message+"</p>");
   });
 
   $(".result").html("<p class='ticketId'>Spray Initialized : "+id+" </p> ");
 }
 
 function makeOffer(){
+  $(".resultOffer").html("<img src='./img/Loading_icon.gif' alt='' height=50 width=50/>");
   // #A setup the first connection (@joining peer) - first step
   spray.launch( function(offerTicket){
     console.log(offerTicket);
     signaling.emit("lunch",offerTicket);
-    $(".resultOffer").html(JSON.stringify(offerTicket));
-    $("#acceptOffer").val(JSON.stringify(offerTicket));
   });
-}
-
-function connecToTicket(ticketStringify){
-  var ticket = JSON.parse(ticketStringify);
-  // #B setup the first connection (@known peer) - second step
-  console.log("Ticket provided: "+ticket);
-  //console.log(ticket);
-  spray.answer(ticket, function(stampedTicketSpray){
-    console.log(stampedTicketSpray);
-    $(".resultAccept").html("<p id='stampedTicket'>"+JSON.stringify(stampedTicketSpray)+"</p>");
-  }),(function(){
-      console.log($("#stampedTicket").html());
-  });
-}
-
-function handshake(accepTicket){
-  // #C setup the first connection (@joining peer) - third step
-  var val = JSON.parse(accepTicket);
-  console.log(val);
-  spray.handshake( val );
 }
 
 function sendMessage(message){
@@ -109,8 +116,9 @@ function sendMessage(message){
     console.log('I can send messages');
   });
   var message = {
+    id:spray.ID,
     message : message ,
-    protocol: "spray"
+    protocol: "spray-message"
   };
   // #2 get a set of links to communicate with the neighborhood. The parameter k
   // is the number of neighbors requested. The membership protocol provides as
@@ -120,4 +128,5 @@ function sendMessage(message){
   for(var socket in links){
     links[socket].send(message);
   }
+  broadcast.send(message);
 }
