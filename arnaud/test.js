@@ -41,9 +41,6 @@ function createOnSignaling(destination){
     spray.handshake(stampedTicket)
     $(".resultOffer").html("");
     $(".resultOffer").append("You're now connected to the network !");
-
-
-
     signaling.emit("disconnect");
   });
 
@@ -58,14 +55,14 @@ function createSpray(pseudo){
   id = spray.ID;
   try{
       vector = new VVwE(42);
-      broadcast = new CausalBroadcast(spray,vector);
+      broadcast = new CausalBroadcast(spray,vector,"spray");
   }catch(e){
     console.log(e);
   }
 
   //
 
-  broadcast.on("receive-message",function(message){
+  broadcast.on("receive",function(message){
     console.log("Receive a message from broadcast !");
     console.log(message);
   });
@@ -128,5 +125,10 @@ function sendMessage(message){
   for(var socket in links){
     links[socket].send(message);
   }
-  broadcast.send(message);
+  try{
+      broadcast.send(message);
+  }catch(e){
+      console.log(e);
+  }
+
 }
