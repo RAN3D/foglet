@@ -6,8 +6,18 @@ var stampedTicket = null;
 
 var signaling = null;
 
-function createOnSignaling(){
-  signaling = io.connect("http://localhost:3000");
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function createOnSignaling(destination){
+  signaling = io.connect(getParameterByName("server"));
   signaling.on("accept",function(offerTicket){
     console.log("**********************");
     console.log(offerTicket);
