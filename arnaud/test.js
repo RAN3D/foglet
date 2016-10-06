@@ -1,9 +1,19 @@
 var Spray = require('spray-wrtc');
-
 var spray = null;
 var id = null;
 var ticket = null;
 var stampedTicket = null;
+
+var signaling = null;
+
+function createOnSignaling(){
+  signaling = io.connect("http://localhost:3000");
+  signaling.on("acceptServer",function(){
+    console.log("**********************");
+    console.log(acceptTicket);
+    console.log("**********************");
+  });
+}
 
 function createSpray(pseudo){
   // #0 initialize the membership protocol with a unique identifier and WebRTC
@@ -11,7 +21,7 @@ function createSpray(pseudo){
   // proactive exchanges) and option.timeout.
   spray = new Spray(pseudo, {iceServers : [{url: null}]});
   id = spray.ID;
-
+  createOnSignaling();
   // #1 check if the network is ready to emit messages with callback
   spray.ready( function(){
     console.log('I can send messages');
@@ -42,7 +52,7 @@ function createSpray(pseudo){
     //socket.emit("Thank you");
     console.log("*************************************************");
   });
-
+  
   $(".result").html("<p class='ticketId'>Spray Initialized : "+id+" </p> ");
 }
 
@@ -52,7 +62,7 @@ function makeOffer(){
     console.log(offerTicket);
     ticket=offerTicket;
     console.log(id);
-
+    signaling.emit("lunch",offerTicket);
     $(".resultOffer").html(JSON.stringify(offerTicket));
     $("#acceptOffer").val(JSON.stringify(offerTicket));
   });
@@ -81,7 +91,7 @@ function handshake(accepTicket){
 function sendMessage(message){
   var message = {
     message : message ,
-    protocol: "spray-receive"
+    protocol: "spray"
   };
   var links = spray.getPeers(10);
   console.log(links);
