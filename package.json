@@ -1,29 +1,22 @@
 {
-  "name": "foglet",
+  "name": "arnaud",
   "version": "1.0.0",
-  "description": "Fog Computing in Browsers",
-  "main": "index.js",
+  "description": "",
+  "main": "test.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://gitlab.com/folkvir/foglet.git"
-  },
-  "keywords": [
-    "webRTC"
-  ],
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "bower": "^1.7.9",
+    "causal-broadcast-definition": "^0.1.0",
+    "express": "^4.14.0",
     "jquery": "^3.1.1",
-    "less": "^2.7.1",
-    "open": "0.0.5",
-    "spray-wrtc": "0.0.2"
-  },
-  "devDependencies": {
-    "zombie": "^4.2.1"
+    "socket.io": "^1.4.8",
+    "socket.io-client": "^1.4.8",
+    "spray-wrtc": "^0.1.1",
+    "version-vector-with-exceptions": "0.0.5",
+    "wrtc": "0.0.61"
   }
 }
