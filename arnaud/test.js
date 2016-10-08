@@ -25,8 +25,8 @@ try{
     vector = new VVwE(Number.MAX_VALUE);
     broadcast = new CausalBroadcast(spray,vector);
     broadcast.on("receive",function(message){
-      console.log("Receive a message from broadcast !");
-      console.log(message);
+      console.log("Broadcast message : " + message);
+      $(".resultSend").append("<hr/><p> <span> Broadcast Message : </span> "+message+" </p>");
     });
 }catch(e){
   console.log(e);
@@ -78,5 +78,5 @@ function createSpray(pseudo){
 }
 
 function sendMessage(message){
-  broadcast.send(message,{_e:1,_c:1});
+  broadcast.send(message,vector.increment());
 }
