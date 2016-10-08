@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Foglet</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./../../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css" />
+  <script type="text/javascript" src="./../../node_modules/jquery/dist/jquery.min.js" > </script>
+  <script type="text/javascript" src="./../../node_modules/bootstrap/dist/js/bootstrap.min.js" > </script>
+
+  <script type="text/javascript" src="./../build/foglet.bundle.debug.js" ></script>
+  <script type="text/javascript" src="./example/main.js"></script>
+</head>
+<style>
+  .firstPart,.secondPart,.thirdPart,.fourthPart,.fifthPart{
+    border:1px solid grey;
+    padding:10px;
+    margin:10px;
+  }
+</style>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+
+        <div class="firstPart">
+          <form class="form-inline" action="javascript:connect();">
+            <button type="submit" class="btn btn-default" >Connection</button>
+          </form>
+          <div class="result"></div>
+        </div>
+
+        <div class="fifthPart">
+          <form class="form-inline" action="javascript:sendMessage($('#sendMessage').val());">
+            <div class="form-group">
+              <label for="ticket">Send a message : </label>
+              <input type="text" class="form-control" id="sendMessage" placeholder="Hello !" />
+            </div>
+            <button type="submit" class="btn btn-default" >Send Message</button>
+          </form>
+          <div class="resultSend"></div>
+        </div>
+
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

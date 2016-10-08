@@ -1,10 +1,12 @@
 {
-  "name": "arnaud",
+  "name": "foglet",
   "version": "1.0.0",
   "description": "",
-  "main": "test.js",
+  "main": "./lib/foglet.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-debug":"browserify -r ./lib/foglet.js:foglet --debug > ./build/foglet.bundle.debug.js",
+    "build-debug-watch":"watchify -r ./lib/foglet.js:foglet --debug -o ./build/foglet.bundle.debug.js -v -d"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +20,14 @@
     "spray-wrtc": "^0.1.1",
     "version-vector-with-exceptions": "0.0.5",
     "wrtc": "0.0.61"
+  },
+  "bundledDependencies": [
+        "version-vector-with-exceptions",
+        "causal-broadcast-definition",
+        "spray-wrtc"
+  ],
+  "devDependencies": {
+    "browserify": "^13.1.0",
+    "watchify": "^3.7.0"
   }
 }
