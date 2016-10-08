@@ -4,7 +4,7 @@ var http = require('http').Server(app);
 
 var io = require("socket.io")(http);
 
-
+var number = 0;
 var joinningPeer = null;
 
 app.use(express.static(__dirname + "/"));
@@ -14,29 +14,34 @@ app.get('/', function(req, res){
 });
 
 
+
 io.on('connection', function(socket){
-  console.log('A user connected');
+  number++;
+  console.log('A user connected - Number of members : '+number);
 
-  socket.on("lunch",function(offerTicket){
-    console.log("**********BEGIN LUNCH EVENT*************");
-    console.log(offerTicket);
-    //ON ACCEPTE LA REQUETE DU CLIENT QUI VEUT SE CONNECTER ET LA LUI RENVOIE
-    joinningPeer = socket;
-    console.log(joinningPeer);
-    socket.broadcast.emit("accept",offerTicket);
-    console.log("**********END LUNCH EVENT*************");
+
+  socket.on("new",function(spray){
+        console.log("**********BEGIN LUNCH EVENT*************");
+        //console.log(spray);
+        joinningPeer = socket;
+        socket.broadcast.emit("new_spray",spray);
+        console.log("**********END LUNCH EVENT*************");
   });
 
-  socket.on("answer",function(stampedTicket){
-    console.log("**********BEGIN ANSWER EVENT*************");
-    console.log(joinningPeer);
-    console.log(stampedTicket);
-    joinningPeer.emit("handshake",stampedTicket);
-    console.log("**********BEGIN ANSWER EVENT*************");
+  socket.on("accept",function(spray){
+    console.log("**********BEGIN ACCEPT EVENT*************");
+    console.log(spray);
+    if(joinningPeer != null){
+        joinningPeer.emit("accept_spray",spray);
+    }
+    joinningPeer = null;
+    console.log("**********END ACCEPT EVENT*************");
   });
+
 
   socket.on('disconnect', function(){
     console.log('A user disconnected');
+    number--;
   });
 });
 

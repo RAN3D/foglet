@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,7 @@
     "jquery": "^3.1.1",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
-    "spray-wrtc": "0.0.2",
+    "spray-wrtc": "^0.1.1",
     "version-vector-with-exceptions": "0.0.5",
     "wrtc": "0.0.61"
   }
