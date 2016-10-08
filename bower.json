@@ -1,5 +1,5 @@
 {
-    "name": "foglet",
-    "version": "0.0.1",
-    "main": "build/foglet.bundle.debug.js"
+  "name": "foglet",
+  "version": "0.0.2",
+  "main": "build/foglet.bundle.debug.js"
 }
