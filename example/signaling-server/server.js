@@ -7,7 +7,7 @@ var io = require("socket.io")(http);
 var number = 0;
 var joinningPeer = null;
 
-app.use(express.static(__dirname + "/../"));
+app.use(express.static(__dirname + "/"));
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + "/index.html");
@@ -46,6 +46,6 @@ io.on('connection', function(socket){
 });
 
 
-http.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+http.listen(4000, function () {
+  console.log('Signaling server listening on port 4000');
 });

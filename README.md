@@ -24,17 +24,25 @@ npm run build-debug-watch
 ## Run the example
 Pre-condition: foglet.bundle.debug.js built
 
-Firstly we have to run a signaling server ! In this example, the signaling server is also the http server which is an ExpressJs server running on the port 3000 in localhost.
-
-In ./example run the following commands :
+Firstly we have to run a signaling server !
 ```bash
+cd example/signaling-server
 node server.js
 ```
 
+Secondly run your http server  :
+```bash
+cd example/
+node http-server.js
+```
+
+
 Now open http://localhost:3000/
 
-All user connected on http://localhot:3000/ are now on the same P2P network.
-The server is here to put the page "online" and to connect all new user between them.
+All user connected on http://localhot:3000/ are now on the same P2P network after their connection by clicking on "Connection".
+The server on http://url:3000 is here to put the page "online" and the signaling-server on http://url:4000 to connect all new user between them.
+The server connection is just temporary.
+After P2P connection, if the server is down, clients are always connected between them.
 
 System functionning :
 * 1 user connected : nothing to do
