@@ -36,6 +36,10 @@ cd example/
 node http-server.js
 ```
 
+Or you can run the following command to run both commands with concurrently :
+```bash
+npm run server
+```
 
 Now open http://localhost:3000/
 
