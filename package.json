@@ -3,16 +3,15 @@
   "version": "0.0.1",
   "description": "",
   "main": "./lib/foglet.js",
-  "repository" :
-  {
-    "type" : "git",
-    "url" : "https://gitlab.com/folkvir/foglet.git"
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install":"concurrently \"npm run install-spray\" \"npm run install-signaling\"",
-    "install-spray":"cd ./lib/spray-wrtc && npm install",
-    "install-signaling":"cd ./example/signaling-server && npm install",
+    "install": "concurrently \"npm run install-spray\" \"npm run install-signaling\"",
+    "install-spray": "cd ./lib/spray-wrtc && npm install",
+    "install-signaling": "cd ./example/signaling-server && npm install",
     "build": "browserify -r ./lib/foglet.js:foglet  | uglifyjs > ./build/foglet.bundle.js",
     "build-debug": "browserify -r ./lib/foglet.js:foglet --debug > ./build/foglet.bundle.debug.js",
     "build-debug-watch": "watchify -r  ./lib/foglet.js:foglet -r ./lib/spray-wrtc/lib/spray.js:spray-wrtc --debug -o ./build/foglet.bundle.debug.js -v -d",
@@ -26,11 +25,13 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "causal-broadcast-definition": "^0.1.x",
+    "events": "^1.1.1",
     "express": "^4.14.0",
     "jquery": "^3.1.1",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8",
     "spray-wrtc": "^0.1.x",
+    "util": "^0.10.3",
     "version-vector-with-exceptions": "0.0.x",
     "wrtc": "0.0.61"
   },
