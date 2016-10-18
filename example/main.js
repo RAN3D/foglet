@@ -1,8 +1,8 @@
 var Foglet = require("foglet");
 
 var foglet = new Foglet({protocol:"chat"});
-
 foglet.init();
+
 
 foglet.on("receive",function(message){
   $(".resultSend").append(message);
@@ -29,3 +29,7 @@ try {
 
 
 var toto = foglet.getRegister("toto");
+
+var value = toto.getValue();
+
+toto.setValue("WhatYouWantHere");
