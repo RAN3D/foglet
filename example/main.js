@@ -12,12 +12,13 @@ foglet.on("receive",function(message){
 
 function connect(){
   foglet.connection();
+  //toto.setValue(50);
 }
 
 function sendMessage(msg){
   foglet.sendMessage(msg);
 }
-/*
+
 try {
     foglet.addRegister("toto");
 } catch (e) {
@@ -28,5 +29,3 @@ try {
 
 
 var toto = foglet.getRegister("toto");
-console.log(toto);
-*/
