@@ -51,3 +51,12 @@ System functionning :
       * Peer-2 or other Clients create an Accept ticket and re-send it to the server
       * The server send the first accept ticket to Peer-1
       * Peer-1 can join the network, the connection is now established.
+
+## Foglet.js Development 
+
+```bash
+#Install all dependencies
+npm install
+#Run all commands in order to run the signaling server, the http server and the build in watch mode.
+npm run dev-all
+```
