@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "",
   "main": "./lib/foglet.js",
+  "repository" :
+  {
+    "type" : "git",
+    "url" : "https://gitlab.com/folkvir/foglet.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify -r ./lib/foglet.js:foglet  | uglifyjs > ./build/foglet.bundle.js",
