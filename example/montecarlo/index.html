@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Foglet Vote</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="./../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="./../example/style.css">
+    <script type="text/javascript" src="./../../node_modules/jquery/dist/jquery.min.js"> </script>
+    <script type="text/javascript" src="./../../node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="./../example/Pie3D.js"></script>
+    <script type="text/javascript" src="./../../build/foglet.bundle.debug.js"> </script>
+    <script type="text/javascript" src="./../example/main.js"> </script>
+</head>
+
+<body class="container">
+	<div class="container">
+		<div class="col-md-12 col-sm-12 col-xs-12 alert alert-success">
+		    <h1>Pensez vous que l'éléphant est plus fort que l'hippopotame ?</h1>
+		</div>
+		<div>
+			<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
+				<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
+					<button onClick="addYes()" class="btn btn-info btn-lg">OUI</button>
+				</div>
+				<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
+					<button onClick="addNo()" class="btn btn-primary btn-lg">NON</button>
+				</div>
+			</div>
+			<div style="text-align: center" class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" id="chart" width="300" height="300">
+			</div>
+			<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
+				<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
+					<label id="yesLabel" class="label label-info">OUI :</label>
+				</div>
+				<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
+					<label id="noLabel" class="label label-primary">NON :</label> 
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-4 col-xs-4 col-sm-offset-4 col-md-offset-4 col-xs-offset-4" style="padding-top:10em;text-align:center">
+		Running with <a href="https://github.com/Chat-Wane/spray-wrtc">SPRAY-WRTC</a>
+		</div>
+	</div>
+</body>
+<script src="./../example/dataIntegration.js"></script>
+</html>
