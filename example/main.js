@@ -29,7 +29,6 @@ foglet.on("receive",function(message){
  */
 function connect(){
   foglet.connection();
-  //toto.setValue(50);
 }
 
 /**
@@ -55,7 +54,7 @@ foglet.addRegister("toto");
 var toto = foglet.getRegister("toto");
 
 /**
- * Listening on the signal toto-receive where every data are sent when the register is updated. 
+ * Listening on the signal toto-receive where every data are sent when the register is updated.
  * @param  {[type]} "toto-receive" [description]
  * @param  {[type]} function(data  [description]
  * @return {[type]}                [description]
