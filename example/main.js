@@ -27,10 +27,10 @@ foglet.on("receive",function(message){
  * Connect the client to another peer of the network.
  * @return {[type]} [description]
  */
-function connect(){
+//function connect(){
   foglet.connection();
   //toto.setValue(50);
-}
+//}
 
 /**
  * Not usefull, Send a message over Foglet
@@ -61,17 +61,38 @@ var toto = foglet.getRegister("toto");
  * @return {[type]}                [description]
  */
 toto.on("toto-receive",function(data){
-  console.log(data);
+  changeData(toto.getValue());
 });
 
 /**
- * Get its value
- * @return {[type]} [description]
+ * Set the register and update graph
  */
-var value = toto.getValue();
+function setVotes(value){
+  toto.setValue(value);
+  changeData(toto.getValue());
+}
+
+/**
+ * add a yes vote to register
+ * and update graph
+ */
+function addYes(){
+  value = toto.getValue();
+  setVotes([++value[0],value[1]]);
+}
+
+/**
+ * add a No vote to register
+ * and update graph
+ */
+function addNo(){
+  value = toto.getValue();
+  setVotes([value[0],++value[1]]);
+}
 
 /**
  * Set its value, and send by broadcast
- * @param {[type]} "WhatYouWantHere" [description]
+ * @param {[type]}
  */
-toto.setValue("WhatYouWantHere");
+toto.setValue([0,0]);
+
