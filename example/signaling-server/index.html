@@ -11,7 +11,6 @@
 </head>
 <style>
   .firstPart,.secondPart,.thirdPart,.fourthPart,.fifthPart{
-    border:1px solid grey;
     padding:10px;
     margin:10px;
   }
@@ -21,13 +20,7 @@
     <div class="row">
       <div class="col-md-10 col-md-offset-1">
         <div class="firstPart">
-          <p class="alert alert-info"> It's just a signaling server accessible via Socket.io </p>
-          <p class="alert alert-success"> Available on  http://signaling.herokuapp.com:4000/  </p>
-          <ul>
-            <li> Signal "new": listening on the signal and redirect the message to all clients listening on signal "new_spray" </li>
-            <li> Signal "accept" : listening on the signal and redirect only the first message from clients to the client which send the first message on "new". </li>
-          </ul>
-
+          <p class="alert alert-info"> It's just a signaling server accessible via Socket.io for applications using spray-wrtc </p>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ var Foglet = require("foglet");
  * Create the foglet protocol.
  * @param {[type]} {protocol:"chat"} [description]
  */
-var foglet = new Foglet({protocol:"chat"});
+var foglet = new Foglet({protocol:"chat",room:"montecarlo"});
 
 /**
  * Init the foglet
@@ -55,7 +55,7 @@ foglet.addRegister("toto");
 var toto = foglet.getRegister("toto");
 
 /**
- * Listening on the signal toto-receive where every data are sent when the register is updated. 
+ * Listening on the signal toto-receive where every data are sent when the register is updated.
  * @param  {[type]} "toto-receive" [description]
  * @param  {[type]} function(data  [description]
  * @return {[type]}                [description]
@@ -95,4 +95,3 @@ function addNo(){
  * @param {[type]}
  */
 toto.setValue([0,0]);
-

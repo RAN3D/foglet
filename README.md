@@ -41,7 +41,8 @@ Or you can run the following command to run both commands with concurrently :
 npm run server
 ```
 
-Now open http://localhost:3000/
+Now open http://localhost:3000/sondage
+Now open http://localhost:3000/montecarlo
 
 System functionning :
 * 1 user connected : nothing to do
@@ -52,7 +53,7 @@ System functionning :
       * The server send the first accept ticket to Peer-1
       * Peer-1 can join the network, the connection is now established.
 
-## Foglet.js Development 
+## Foglet.js Development
 
 ```bash
 #Install all dependencies
