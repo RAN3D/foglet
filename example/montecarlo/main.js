@@ -27,10 +27,7 @@ foglet.on("receive",function(message){
  * Connect the client to another peer of the network.
  * @return {[type]} [description]
  */
-//function connect(){
-  foglet.connection();
-  //toto.setValue(50);
-//}
+ foglet.connection();
 
 /**
  * Not usefull, Send a message over Foglet
@@ -73,25 +70,8 @@ function setVotes(value){
 }
 
 /**
- * add a yes vote to register
- * and update graph
- */
-function addYes(){
-  value = toto.getValue();
-  setVotes([++value[0],value[1]]);
-}
-
-/**
- * add a No vote to register
- * and update graph
- */
-function addNo(){
-  value = toto.getValue();
-  setVotes([value[0],++value[1]]);
-}
-
-/**
  * Set its value, and send by broadcast
  * @param {[type]}
  */
-toto.setValue([0,0]);
+toto.setValue([0,1]);
+changeData(toto.getValue())
