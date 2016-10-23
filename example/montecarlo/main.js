@@ -75,3 +75,9 @@ function setVotes(value){
  */
 toto.setValue([0,1]);
 changeData(toto.getValue())
+
+/**
+ * init local canvas (Monte carlo graph)
+ */
+initCanvas();
+drawPoint(0.5,0.5,false);
