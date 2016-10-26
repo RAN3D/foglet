@@ -8,13 +8,15 @@
     "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "xo ./lib/foglet.js",
     "install": "concurrently \"npm run install-spray\" \"npm run install-signaling\"",
     "install-spray": "cd ./lib/spray-wrtc && npm install",
     "install-signaling": "cd ./example/signaling-server && npm install",
     "build": "browserify -r ./lib/foglet.js:foglet  | uglifyjs > ./build/foglet.bundle.js",
     "build-debug": "browserify -r ./lib/foglet.js:foglet --debug > ./build/foglet.bundle.debug.js",
     "build-debug-watch": "watchify -r  ./lib/foglet.js:foglet -r ./lib/spray-wrtc/lib/spray.js:spray-wrtc --debug -o ./build/foglet.bundle.debug.js -v -d",
+    "build-proper-watch":"concurrently \"npm run build-debug-watch\" \"npm run proper\"",
+    "proper":"xo ./lib/foglet.js ./lib/fregister.js",
     "http-server": "cd example && node http-server.js",
     "signaling-server": "cd example/signaling-server && node server.js",
     "server": "concurrently \"npm run http-server\"  \"npm run signaling-server\"",
@@ -44,6 +46,13 @@
     "browserify": "^13.1.0",
     "concurrently": "^3.1.0",
     "uglifyjs": "^2.4.10",
-    "watchify": "^3.7.0"
+    "watchify": "^3.7.0",
+    "xo": "^0.17.0"
+  },
+  "xo": {
+    "envs":["node"],
+    "esnext": false,
+		"ignores":["./lib/spray-wrtc","./build","./example"],
+		"globals":["window"]
   }
 }
