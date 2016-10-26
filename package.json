@@ -8,7 +8,7 @@
     "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
-    "test": "xo ./lib/foglet.js",
+    "test": "npm run proper",
     "install": "concurrently \"npm run install-spray\" \"npm run install-signaling\"",
     "install-spray": "cd ./lib/spray-wrtc && npm install",
     "install-signaling": "cd ./example/signaling-server && npm install",
@@ -16,7 +16,7 @@
     "build-debug": "browserify -r ./lib/foglet.js:foglet --debug > ./build/foglet.bundle.debug.js",
     "build-debug-watch": "watchify -r  ./lib/foglet.js:foglet -r ./lib/spray-wrtc/lib/spray.js:spray-wrtc --debug -o ./build/foglet.bundle.debug.js -v -d",
     "build-proper-watch":"concurrently \"npm run build-debug-watch\" \"npm run proper\"",
-    "proper":"xo ./lib/foglet.js ./lib/fregister.js",
+    "proper":"xo --fix ./lib/f*.js ",
     "http-server": "cd example && node http-server.js",
     "signaling-server": "cd example/signaling-server && node server.js",
     "server": "concurrently \"npm run http-server\"  \"npm run signaling-server\"",
@@ -50,9 +50,8 @@
     "xo": "^0.17.0"
   },
   "xo": {
-    "envs":["node"],
+    "envs":["node","browser"],
     "esnext": false,
-		"ignores":["./lib/spray-wrtc","./build","./example"],
-		"globals":["window"]
+		"ignores":["./lib/spray-wrtc","./build","./example"]
   }
 }
