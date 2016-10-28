@@ -1,6 +1,8 @@
 # Foglet
+
 It is a Capstone Project for Fog Computing in Browsers.
-This project aims to provide example for spray-wrtc protocol created by Chat-Wane (see References).
+
+This project aims to provide examples for Spray-wrtc protocol created by Chat-Wane (see References).
 
 ## Install
 Assume you have node and npm (Node Packet Manager) installed :
