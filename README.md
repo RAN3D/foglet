@@ -70,7 +70,9 @@ npm run dev-all
 Tests runs under [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai) and are covered by [NYC](https://github.com/istanbuljs/nyc) which is a CLI command tool provided by [Istanbul](https://github.com/gotwarlost/istanbul)
 
 Coverage Threshold : 90%
+
 Srcdir : ./lib
+
 Exclude : ./lib/spray-wrtc
 
 In order to run tests in test/test.js with a verification of javascript guidelines :

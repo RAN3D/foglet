@@ -1,6 +1,7 @@
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 var mocha = require('mocha');
+var wrtc = require('wrtc');
 
 var Foglet = require('../lib/foglet.js');
 var FRegister = require('../lib/fregister.js').FRegister;
@@ -19,7 +20,7 @@ mocha.describe('[FOGLET:INIT]', function () {
 		});
 	});
 	mocha.describe('#Init with options', function () {
-		it('init throw a ConstructException when needed options are undefined', function () {
+		it('init() throw a ConstructException when needed options are undefined', function () {
 			var fn = function () {
 				(new Foglet({
 					protocol: null,
@@ -27,6 +28,25 @@ mocha.describe('[FOGLET:INIT]', function () {
 				}))();
 			};
 			expect(fn).to.throw(ConstructException);
+		});
+		it('init() set the correct status with correct options', function () {
+			var f = new Foglet({
+				protocol: 'test',
+				room: 'test'
+			});
+			assert(f.status, 'initialized', 'Return a correct status after initialization');
+		});
+	});
+	mocha.describe('#Connection', function () {
+		it('connection return connected as status', function () {
+			var f = new Foglet({
+				protocol: 'test',
+				room: 'test',
+				wrtc: wrtc
+			});
+			f.init();
+			f.connection();
+			assert(f.status, 'connected', 'Return a correct status after conection');
 		});
 	});
 });
@@ -58,13 +78,19 @@ mocha.describe('[FOGLET:FREGISTER]', function () {
 					protocol: 'test',
 					room: 'test'
 				});
-				var f1 = new Foglet({
-					protocol: 'test',
-					room: 'test'
-				});
-				f1.addRegister();
+				f.addRegister();
 			};
 			expect(fn).to.throw(FRegisterAddException);
+		});
+		it('set a value and return the correct value', function () {
+			var f = new Foglet({
+				protocol: 'test',
+				room: 'test'
+			});
+			f.init();
+			f.addRegister('test');
+			f.getRegister('test').setValue('a_value');
+			assert.equal(f.getRegister('test').getValue(), 'a_value', 'Return the correct value');
 		});
 	});
 });
