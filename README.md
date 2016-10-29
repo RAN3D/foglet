@@ -65,6 +65,28 @@ npm install
 npm run dev-all
 ```
 
+## Foglet.js Tests
+
+Tests runs under [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai) and are covered by [NYC](https://github.com/istanbuljs/nyc) which is a CLI command tool provided by [Istanbul](https://github.com/gotwarlost/istanbul)
+
+Coverage Threshold : 90%
+Srcdir : ./lib
+Exclude : ./lib/spray-wrtc
+
+In order to run tests in test/test.js with a verification of javascript guidelines :
+```bash
+npm test
+```
+It will execute the following commands :
+```bash
+xo --fix ./lib/f*.js && _mocha --compilers js:babel-register ./test/test.js
+```
+
+In order to run the coverage tests :
+```bash
+npm run cover #Run `nyc npm test`
+```
+
 ## References
 
 Chat-Wane :
