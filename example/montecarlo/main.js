@@ -74,10 +74,29 @@ function setVotes(value){
  * @param {[type]}
  */
 toto.setValue([0,1]);
-changeData(toto.getValue())
 
 /**
  * init local canvas (Monte carlo graph)
  */
 initCanvas();
-drawPoint(0.5,0.5,false);
+
+var localData = [0,0];
+
+function drawPoints() {
+	var x = Math.random() * 2 - 1;
+	var y = Math.random() * 2 - 1;
+
+	if (Math.pow(x, 2) + Math.pow(y, 2) < 1){
+		drawPoint(x, y, true);
+		localData[0]++;
+	} else {
+		drawPoint(x, y, false);
+	}
+	localData[1]++;
+	changeLocalData(localData);
+	// changeData must be called in the foglet message reception
+	changeData(toto.getValue(), localData);
+}
+
+setInterval(drawPoints, 10);
+
