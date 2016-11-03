@@ -46,6 +46,7 @@
   ],
   "devDependencies": {
     "babel-core": "^6.18.0",
+    "babel-preset-es2015": "^6.18.0",
     "babel-preset-es2016": "^6.16.0",
     "babel-register": "^6.18.0",
     "babelify": "^7.3.0",
@@ -69,7 +70,16 @@
     "xo": "^0.17.0"
   },
   "browserify": {
-    "transform": [["babelify", { "presets": ["es2015"] }]]
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015"
+          ]
+        }
+      ]
+    ]
   },
   "xo": {
     "envs": [
