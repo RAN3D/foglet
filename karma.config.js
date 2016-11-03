@@ -16,7 +16,9 @@ module.exports = function (config) {
 			'karma-mocha-reporter',
 			'karma-chrome-launcher',
 			'karma-firefox-launcher',
-			'karma-socketio-server'
+			'karma-socketio-server',
+			'karma-edge-launcher',
+			'karma-safari-launcher'
 		],
 		// list of files / patterns to load in the browser
 		files: [
@@ -25,6 +27,7 @@ module.exports = function (config) {
 		],
 		preprocessors:{
 				'test/test.js' : ['coverage','browserify'],
+				'lib/f*.js': ['coverage']
 		},
 		// list of files to exclude
 		exclude: [
@@ -62,15 +65,16 @@ module.exports = function (config) {
 		// if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
     autoWatch: true,
-		port: 4000,
+		port: 4010,
+		browserNoActivityTimeout:20000,
 		colors: true,
 		// level of logging
 		// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
 		logLevel: config.LOG_INFO,
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome','Firefox'],
-		singleRun: false,
+		browsers: ['Firefox'],
+		singleRun: true,
 		// Concurrency level
 		// how many browser should be started simultaneous
 		concurrency: Infinity

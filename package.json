@@ -8,7 +8,7 @@
     "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
-    "test": "_mocha --compilers js:babel-register ./test/test.js",
+    "test": "npm run karma",
     "karma": "karma start karma.config.js",
     "cover": "nyc npm test",
     "proper": "xo --fix ./lib/f*.js ",
@@ -59,9 +59,11 @@
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
+    "karma-edge-launcher": "^0.1.1",
     "karma-firefox-launcher": "^1.0.0",
     "karma-mocha": "^1.2.0",
     "karma-mocha-reporter": "^2.2.0",
+    "karma-safari-launcher": "^1.0.0",
     "karma-socketio-server": "^1.0.0",
     "mocha": "^3.1.2",
     "nyc": "^8.3.2",

@@ -67,13 +67,7 @@ npm run dev-all
 
 ## Foglet.js Tests
 
-Tests runs under [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai) and are covered by [NYC](https://github.com/istanbuljs/nyc) which is a CLI command tool provided by [Istanbul](https://github.com/gotwarlost/istanbul)
-
-Coverage Threshold : 90%
-
-Srcdir : ./lib
-
-Exclude : ./lib/spray-wrtc
+Tests runs under [Karma](https://github.com/karma-runner/karma) with [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai)
 
 In order to run tests in test/test.js with a verification of javascript guidelines :
 ```bash
@@ -81,13 +75,11 @@ npm test
 ```
 It will execute the following commands :
 ```bash
-xo --fix ./lib/f*.js && _mocha --compilers js:babel-register ./test/test.js
+npm run karma #Will execute karma start karma.config.js
 ```
 
-In order to run the coverage tests :
-```bash
-npm run cover #Run `nyc npm test`
-```
+It will runs tests under a browser, by default : Firefox, but you can easily change it in the config file.
+
 
 ## References
 
