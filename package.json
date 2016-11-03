@@ -16,7 +16,7 @@
     "install-spray": "cd ./lib/spray-wrtc && npm install",
     "install-signaling": "cd ./example/signaling-server && npm install",
     "build": "browserify -r ./lib/foglet.js:foglet  | uglifyjs > ./build/foglet.bundle.js",
-    "build-debug": "browserify -r ./lib/foglet.js:foglet --debug > ./build/foglet.bundle.debug.js",
+    "build-debug": "browserify -r ./lib/foglet.js:foglet --debug -t babelify --presets es2015 > ./build/foglet.bundle.debug.js",
     "build-debug-watch": "watchify -r  ./lib/foglet.js:foglet -r ./lib/spray-wrtc/lib/spray.js:spray-wrtc --debug -o ./build/foglet.bundle.debug.js -v -d",
     "build-proper-watch": "concurrently \"npm run build-debug-watch\" \"npm run proper\"",
     "http-server": "cd example && node http-server.js",
@@ -46,6 +46,7 @@
   ],
   "devDependencies": {
     "babel-core": "^6.18.0",
+    "babel-preset-es2016": "^6.16.0",
     "babel-register": "^6.18.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
@@ -66,6 +67,9 @@
     "uglifyjs": "^2.4.10",
     "watchify": "^3.7.0",
     "xo": "^0.17.0"
+  },
+  "browserify": {
+    "transform": [["babelify", { "presets": ["es2015"] }]]
   },
   "xo": {
     "envs": [

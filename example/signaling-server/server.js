@@ -7,7 +7,7 @@ var io = require("socket.io")(http);
 var number = 0;
 var joinningPeer = null;
 
-app.use(express.static(__dirname + "./"));
+app.use(express.static(__dirname + "/"));
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + "/index.html");

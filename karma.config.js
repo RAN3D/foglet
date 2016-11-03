@@ -69,7 +69,7 @@ module.exports = function (config) {
 		logLevel: config.LOG_INFO,
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome'],
+		browsers: ['Chrome','Firefox'],
 		singleRun: false,
 		// Concurrency level
 		// how many browser should be started simultaneous
