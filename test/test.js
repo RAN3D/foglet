@@ -37,8 +37,29 @@ describe('[FOGLET:INIT]', function () {
 		});
 	});
 	describe('#Connection', function () {
-		it('connection return connected as status', function () {
-		// TODO USE KARMA TO TEST IN BROWSER
+		this.timeout(5000);
+		it('connection return connected as status', function (done) {
+			var f = new Foglet({
+				protocol: 'test',
+				room: 'test'
+			});
+			var f1 = new Foglet({
+				protocol: 'test',
+				room: 'test'
+			});
+			f.init();
+			f1.init();
+			f.connection();
+			f1.connection().then(function(){
+				console.log(f1.room);
+				console.log(f1.status);
+				assert(f.status, f1.status, "status need to be 'connected' !");
+				done();
+			},function(error){
+				console.log(error);
+				done();
+			});
+
 		});
 	});
 });

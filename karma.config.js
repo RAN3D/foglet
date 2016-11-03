@@ -15,11 +15,13 @@ module.exports = function (config) {
 			'karma-coverage',
 			'karma-mocha-reporter',
 			'karma-chrome-launcher',
-			'karma-firefox-launcher'
+			'karma-firefox-launcher',
+			'karma-socketio-server'
 		],
 		// list of files / patterns to load in the browser
 		files: [
-			'test/test.js'
+			'test/test.js',
+			'http://localhost:4000/socket.io/socket.io.js'   //just only inject it
 		],
 		preprocessors:{
 				'test/test.js' : ['coverage','browserify'],
@@ -60,14 +62,14 @@ module.exports = function (config) {
 		// if true, Karma captures browsers, runs the tests and exits
     singleRun: false,
     autoWatch: true,
-		port: 9876,
+		port: 4000,
 		colors: true,
 		// level of logging
 		// possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
 		logLevel: config.LOG_INFO,
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-		browsers: ['Chrome', 'Firefox'],
+		browsers: ['Chrome'],
 		singleRun: false,
 		// Concurrency level
 		// how many browser should be started simultaneous
