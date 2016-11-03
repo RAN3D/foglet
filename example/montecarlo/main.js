@@ -81,6 +81,7 @@ toto.setValue([0,1]);
 initCanvas();
 
 var localData = [0,0];
+var previousUpdate = [0, 0];
 
 function drawPoints() {
 	var x = Math.random() * 2 - 1;
@@ -94,9 +95,20 @@ function drawPoints() {
 	}
 	localData[1]++;
 	changeLocalData(localData);
-	// changeData must be called in the foglet message reception
-	changeData(toto.getValue(), localData);
 }
 
 setInterval(drawPoints, 10);
+
+/**
+ * Update the register
+ */
+function updateRegister() {
+	var data = toto.getValue();
+	var dataToSet = [data[0]+localData[0]-previousUpdate[0], data[1]+localData[1]-previousUpdate[1]];
+	toto.setValue(dataToSet);
+	previousUpdate = [localData[0], localData[1]];
+}
+
+setInterval(updateRegister, 4000);
+
 

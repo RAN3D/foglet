@@ -27,10 +27,10 @@ function drawPoint(x, y, isIn){
 /*
 * Update pi global value on local view
 */
-function changeData(value, localValue){
-	$('#InLabelGlobal').html("IN:" + (value[0]+localValue[0]));
-	$('#TotalLabelGlobal').html("TOTAL:" + (value[1]+localValue[1]));
-	$('#pi-result').html(4*((value[0]+localValue[0])/(value[1]+localValue[1])));
+function changeData(value){
+	$('#InLabelGlobal').html("IN:" + (value[0]));
+	$('#TotalLabelGlobal').html("TOTAL:" + (value[1]));
+	$('#pi-result').html(4*((value[0])/(value[1])));
 }
 
 /**
