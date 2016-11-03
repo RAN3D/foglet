@@ -8,7 +8,8 @@
     "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
-    "test": "npm run proper && _mocha --compilers js:babel-register ./test/test.js",
+    "test": "_mocha --compilers js:babel-register ./test/test.js",
+    "karma": "karma start karma.config.js",
     "cover": "nyc npm test",
     "proper": "xo --fix ./lib/f*.js ",
     "install": "concurrently \"npm run install-spray\" \"npm run install-signaling\"",
@@ -46,9 +47,19 @@
   "devDependencies": {
     "babel-core": "^6.18.0",
     "babel-register": "^6.18.0",
+    "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "chai": "^3.5.0",
     "concurrently": "^3.1.0",
+    "istanbul": "^0.4.5",
+    "karma": "^1.3.0",
+    "karma-browserify": "^5.1.0",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-mocha": "^1.2.0",
+    "karma-mocha-reporter": "^2.2.0",
     "mocha": "^3.1.2",
     "nyc": "^8.3.2",
     "uglifyjs": "^2.4.10",
@@ -69,7 +80,7 @@
       "./test"
     ]
   },
-	"nyc": {
+  "nyc": {
     "lines": 90,
     "statements": 90,
     "functions": 90,
@@ -81,7 +92,7 @@
       "lib/spray-wrtc/**/*.js"
     ],
     "reporter": [
-			"lcov",
+      "lcov",
       "json",
       "text"
     ],
