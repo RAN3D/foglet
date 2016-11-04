@@ -6,8 +6,9 @@ This project aims to provide examples for Spray-wrtc protocol created by Chat-Wa
 
 ## Installation
 
-Built and test with Node :  v4.6.0, v7.0.0
-Built and test with NPM  : v2.15.9, v3.10.8
+Built and test with Node :  **v4.6.0**, **v7.0.0**
+
+Built and test with NPM  : **v2.15.9**, **v3.10.8**
 
 Assume you have node and npm (Node Packet Manager) installed :
 ```bash
