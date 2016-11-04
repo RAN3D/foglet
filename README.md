@@ -83,7 +83,9 @@ It will runs tests under a browser, by default : Firefox, but you can easily cha
 
 ## References
 
-Chat-Wane :
+**T. Minier** for contributions on ES6 references and testing tools.
+
+**Chat-Wane** :
 Keywords: Random peer sampling, adaptive, browser-to-browser communication, WebRTC
 
 This project aims to provide a WebRTC implementation of Spray.

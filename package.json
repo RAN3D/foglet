@@ -89,12 +89,12 @@
       "browser",
       "mocha"
     ],
-    "esnext": false,
+    "esnext": true,
     "ignores": [
-      "./lib/spray-wrtc",
-      "./build",
-      "./example",
-      "./test"
+      "./lib/spray-wrtc/**/*.js",
+      "./build/**/*.js",
+      "./example/**/*.js",
+      "./test/*.js"
     ]
   },
   "nyc": {
