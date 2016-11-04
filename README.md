@@ -4,7 +4,11 @@ It is a Capstone Project for Fog Computing in Browsers.
 
 This project aims to provide examples for Spray-wrtc protocol created by Chat-Wane (see References).
 
-## Install
+## Installation
+
+Built and test with Node :  v4.6.0, v7.0.0
+Built and test with NPM  : v2.15.9, v3.10.8
+
 Assume you have node and npm (Node Packet Manager) installed :
 ```bash
 git clone http://gitlab.com/folkvir/foglet.git
@@ -83,7 +87,7 @@ It will runs tests under a browser, by default : Firefox, but you can easily cha
 
 ## References
 
-**T. Minier** for contributions on ES6 references and testing tools.
+**T. Minier** alias [Callidon](https://github.com/Callidon) :  for contributions on ES6 references and testing tools.
 
 **Chat-Wane** :
 Keywords: Random peer sampling, adaptive, browser-to-browser communication, WebRTC
