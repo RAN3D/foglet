@@ -4,7 +4,12 @@ It is a Capstone Project for Fog Computing in Browsers.
 
 This project aims to provide examples for Spray-wrtc protocol created by Chat-Wane (see References).
 
-## Install
+## Installation
+
+Built and test with Node :  **v4.6.0**, **v7.0.0**
+
+Built and test with NPM  : **v2.15.9**, **v3.10.8**
+
 Assume you have node and npm (Node Packet Manager) installed :
 ```bash
 git clone http://gitlab.com/folkvir/foglet.git
@@ -67,13 +72,7 @@ npm run dev-all
 
 ## Foglet.js Tests
 
-Tests runs under [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai) and are covered by [NYC](https://github.com/istanbuljs/nyc) which is a CLI command tool provided by [Istanbul](https://github.com/gotwarlost/istanbul)
-
-Coverage Threshold : 90%
-
-Srcdir : ./lib
-
-Exclude : ./lib/spray-wrtc
+Tests runs under [Karma](https://github.com/karma-runner/karma) with [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai)
 
 In order to run tests in test/test.js with a verification of javascript guidelines :
 ```bash
@@ -81,17 +80,17 @@ npm test
 ```
 It will execute the following commands :
 ```bash
-xo --fix ./lib/f*.js && _mocha --compilers js:babel-register ./test/test.js
+npm run karma #Will execute karma start karma.config.js
 ```
 
-In order to run the coverage tests :
-```bash
-npm run cover #Run `nyc npm test`
-```
+It will runs tests under a browser, by default : Firefox, but you can easily change it in the config file.
+
 
 ## References
 
-Chat-Wane :
+**T. Minier** alias [Callidon](https://github.com/Callidon) :  for contributions on ES6 references and testing tools.
+
+**Chat-Wane** :
 Keywords: Random peer sampling, adaptive, browser-to-browser communication, WebRTC
 
 This project aims to provide a WebRTC implementation of Spray.

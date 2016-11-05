@@ -37,7 +37,7 @@ describe('[FOGLET:INIT]', function () {
 		});
 	});
 	describe('#Connection', function () {
-		this.timeout(5000);
+		this.timeout(15000);
 		it('connection return connected as status', function (done) {
 			var f = new Foglet({
 				protocol: 'test',
@@ -48,17 +48,16 @@ describe('[FOGLET:INIT]', function () {
 				room: 'test'
 			});
 			f.init();
-			f1.init();
-			f.connection();
-			f1.connection().then(function(){
-				console.log(f1.room);
-				console.log(f1.status);
-				assert(f.status, f1.status, "status need to be 'connected' !");
-				done();
-			},function(error){
-				console.log(error);
-				done();
-			});
+			// @Firefox: we are waiting for the initialization is well established.
+			setTimeout(function(){
+				f1.init();
+				f1.connection().then(function(){
+					assert(f.status, f1.status, "status need to be 'connected' !");
+					done();
+				},function(error){
+					done();
+				});
+			}, 2000);
 
 		});
 	});
