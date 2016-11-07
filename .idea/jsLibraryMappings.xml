@@ -2,6 +2,7 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{foglet/node_modules}" />
+    <file url="file://$PROJECT_DIR$/example/mobile" libraries="{foglet/example/mobile/node_modules}" />
     <file url="file://$PROJECT_DIR$/example/signaling-server" libraries="{foglet/example/signaling-server/node_modules}" />
     <file url="file://$PROJECT_DIR$/lib/spray-wrtc" libraries="{foglet/lib/spray-wrtc/node_modules}" />
   </component>
