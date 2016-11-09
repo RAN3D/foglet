@@ -68,6 +68,7 @@
     "mocha": "^3.1.2",
     "nyc": "^8.3.2",
     "uglifyjs": "^2.4.10",
+    "unicast-definition": "^0.1.0",
     "watchify": "^3.7.0",
     "xo": "^0.17.0"
   },
