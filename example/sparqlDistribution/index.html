@@ -9,11 +9,12 @@
 
     <link rel="stylesheet" href="./../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./../../../node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="./../../../example/sondage/style.css">
+    <link rel="stylesheet" type="text/css" href="./../../../example/sparqlDistribution/style.css">
     <script type="text/javascript" src="./../../../node_modules/jquery/dist/jquery.min.js"> </script>
     <script type="text/javascript" src="./../../../node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
     <script type="text/javascript" src="./../../../build/foglet.bundle.debug.js"> </script>
-    <script type="text/javascript" src="./../../../example/sondage/main.js"> </script>
+    <script type="text/javascript" src="./../../../example/sparqlDistribution/main.js"> </script>
+	<script type="text/javascript" src="./../../../example/sparqlDistribution/queryManager.js"> </script>
 </head>
 
 <body class="container">
@@ -23,26 +24,31 @@
 		</div>
 		<div class="panel panel-primary col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px;">
 			<div class="panel-heading">
-			  <h3 class="panel-title">SPARQL Query</h3>
+			  <h3 class="panel-title">SPARQL Queries</h3>
 			</div>
 			<div class="panel-body">
-				<div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<textarea class="form-control" rows="5" id="query"></textarea>
+						<textarea class="form-control" rows="5" id="queries">
+						[
+							"SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } LIMIT 100",
+							"SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } OFFSET 100 LIMIT 100",
+							"SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } OFFSET 100 LIMIT 100"
+						]
+						</textarea>
 					</div>
 				</div>
 				<div class="col-md-2 col-sm-2 col-xs-2 col-sm-offset-5 col-md-offset-5 col-xs-offset-5">
-					<button onClick="console.log('ok')" class="btn btn-info btn-lg">Send</button>
+					<button onClick="send()" class="btn btn-info btn-lg">Send</button>
 				</div>
 			</div>
 		</div>
-		<div class="panel panel-primary col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px;">
+		<div class="panel panel-primary col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px;text-align:left" >
 			<div class="panel-heading">
-			  <h3 class="panel-title">Distribution</h3>
+			  <h3 class="panel-title">Results</h3>
 			</div>
 			<div class="panel-body">
-				<div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
-					??
+				<div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center" id="resultPanel">
 				</div>
 			</div>
 		</div>

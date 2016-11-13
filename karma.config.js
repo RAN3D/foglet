@@ -27,7 +27,8 @@ module.exports = function (config) {
 		],
 		preprocessors:{
 				'test/test.js' : ['coverage','browserify'],
-				'lib/f*.js': ['coverage']
+				'lib/f*.js': ['coverage'],
+				'lib/neighbour-delegated-protocol/Client.js-masterf/ldf-client.js': ['coverage']
 		},
 		// list of files to exclude
 		exclude: [

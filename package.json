@@ -18,7 +18,7 @@
     "install-signaling": "cd ./example/signaling-server && npm install",
     "build": "browserify -r ./lib/foglet.js:foglet  | uglifyjs > ./build/foglet.bundle.js",
     "build-debug": "browserify -r ./lib/foglet.js:foglet --debug -t babelify --presets es2015 > ./build/foglet.bundle.debug.js",
-    "build-debug-watch": "watchify -r  ./lib/foglet.js:foglet -r ./lib/spray-wrtc/lib/spray.js:spray-wrtc --debug -o ./build/foglet.bundle.debug.js -v -d",
+    "build-debug-watch": "watchify -r  ./lib/foglet.js:foglet -r ./lib/spray-wrtc/lib/spray.js:spray-wrtc -r  ./lib/neighbour-delegated-protocol/Client.js-master/ldf-client.js:ldf-client --debug -o ./build/foglet.bundle.debug.js -v -d",
     "build-proper-watch": "concurrently \"npm run build-debug-watch\" \"npm run proper\"",
     "http-server": "cd example && node http-server.js",
     "signaling-server": "cd example/signaling-server && node server.js",
