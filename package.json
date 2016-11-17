@@ -66,6 +66,7 @@
     "karma-mocha-reporter": "^2.2.0",
     "karma-safari-launcher": "^1.0.0",
     "karma-socketio-server": "^1.0.0",
+    "ldf-client": "^2.0.3",
     "mocha": "^3.1.2",
     "nyc": "^8.3.2",
     "uglifyjs": "^2.4.10",

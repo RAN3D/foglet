@@ -32,40 +32,44 @@ foglet.on("receive",function(message){
  */
   foglet.connection();
 
+
 /**
- * Not usefull, Send a message over Foglet
- * @param  {[type]} msg [description]
- * @return {[type]}     [description]
+ * will contains the queries in the textArea
  */
-function sendMessage(msg){
-  foglet.sendMessage(msg);
+var queries;
+/**
+ * will contains the results of each queries
+ */
+var queriesResults;
+
+/**
+ * convert the value of the textArea into a javascript object
+ */
+function text2Object(){
+	var textQueries = document.getElementById('queries').value;
+	queries = JSON.parse(textQueries);
 }
 
 /**
- * Create a register named toto
- * @param {[type]} "toto" [description]
+ * Ask the endpoint with the query
+ * @param query the query to execute
+ * @param id the index of the query in 'queries' variable
  */
-foglet.addRegister("toto");
+function getQueryResult(query,id) {
+	var resultPanel = document.createElement('div');
+	//resultPanel.append('query ' + id + ' result' + '\n');
+	//document.getElementById('resultPanel').appendChild(resultPanel);
+	
+	foglet.ndp.send(query);
+}
 
 /**
- * Get the register
- * @param  {[type]} "toto" [description]
- * @return {[type]}        [description]
+ * convert the value and send to ldf
  */
-var toto = foglet.getRegister("toto");
-
-/**
- * Listening on the signal toto-receive where every data are sent when the register is updated.
- * @param  {[type]} "toto-receive" [description]
- * @param  {[type]} function(data  [description]
- * @return {[type]}                [description]
- */
-toto.on("toto-receive",function(data){
-  value = toto.getValue();
-});
-
-/**
- * Set its value, and send by broadcast
- * @param {[type]}
- */
-toto.setValue([0,0]);
+function send(){
+	text2Object();
+	for (i = 0; i < queries.length; i++) {
+		getQueryResult(queries[i],i);
+	}
+	
+}
