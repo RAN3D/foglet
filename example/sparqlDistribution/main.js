@@ -55,21 +55,9 @@ function text2Object(){
 }
 
 /**
- * Ask the endpoint with the query
- * @param query the query to execute
- * @param id the index of the query in 'queries' variable
- */
-function getQueryResult(query,id) {
-	foglet.ndp.send(query);
-}
-
-/**
  * convert the value and send to ldf
  */
 function send(){
 	text2Object();
-	for (i = 0; i < queries.length; i++) {
-		getQueryResult(queries[i],i);
-	}
-
+	foglet.ndp.send(queries);
 }
