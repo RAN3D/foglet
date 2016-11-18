@@ -23,6 +23,10 @@ foglet.init();
  */
 foglet.on("receive",function(message){
   console.log(message);
+	var resultPanel = document.createElement('div');
+	resultPanel.append('query ' + id + ' result' + '\n');
+	document.getElementById('resultPanel').appendChild(resultPanel);
+	resultPanel.append(JSON.stringify(result) + '\n');
 });
 
 
@@ -56,10 +60,6 @@ function text2Object(){
  * @param id the index of the query in 'queries' variable
  */
 function getQueryResult(query,id) {
-	var resultPanel = document.createElement('div');
-	//resultPanel.append('query ' + id + ' result' + '\n');
-	//document.getElementById('resultPanel').appendChild(resultPanel);
-	
 	foglet.ndp.send(query);
 }
 
@@ -71,5 +71,5 @@ function send(){
 	for (i = 0; i < queries.length; i++) {
 		getQueryResult(queries[i],i);
 	}
-	
+
 }
