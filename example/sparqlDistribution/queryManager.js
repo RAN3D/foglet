@@ -21,26 +21,21 @@ function text2Object(){
 }
 
 /**
- * Ask the endpoint with the query
  * @param query the query to execute
- * @param id the index of the query in 'queries' variable
+ * @param id the index of the query
  */
-function getQueryResult(query,id) {
+function displayResult(queryResult,id) {
 	var resultPanel = document.createElement('div');
 	resultPanel.append('query ' + id + ' result' + '\n');
 	document.getElementById('resultPanel').appendChild(resultPanel);
-	
-	results = new ldf.SparqlIterator(query, { fragmentsClient: fragmentsClient });
-	results.on('data', function (result) {resultPanel.append(JSON.stringify(result) + '\n')});
-}
-
-/**
- * convert the value and send to ldf
- */
-function send(){
-	text2Object();
-	for (i = 0; i < queries.length; i++) {
-		getQueryResult(queries[i],i);
+	var table = document.createElement("table");
+	table.className += "resultTab";
+	for (let i = 0; i < queryResult.length; ++i) {
+		var tr = document.createElement("tr");
+		var td = document.createElement("td");
+		td.innerHTML = queryResult[i];
+		tr.appendChild(td);
+		table.appendChild(tr);
 	}
-	
+	resultPanel.appendChild(table);
 }

@@ -1,5 +1,5 @@
 var Foglet = require("foglet");
-
+var cptQuery = 0;
 /**
  * Create the foglet protocol.
  * @param {[type]} {protocol:"chat"} [description]
@@ -55,9 +55,19 @@ function text2Object(){
 }
 
 /**
- * convert the value and send to ldf
+ * convert the value and send to other browsers
  */
 function send(){
 	text2Object();
 	foglet.ndp.send(queries);
+}
+
+/**
+ * When the browser receive an answer
+ */
+function onReceiveAnswer(msg){
+	for (let i = 0; i < msg.payload.length; ++i) {
+		displayResult(msg.payload[i],cptQuery);
+		++cptQuery;
+	}
 }
