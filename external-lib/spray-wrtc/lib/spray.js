@@ -67,7 +67,9 @@ function Spray(options) {
 	});
 
     // (TODO) remove fast access usefull 4 debug
-	this.exchange = function () { exchange.call(self); };
+	this.exchange = function () {
+		exchange.call(self);
+	};
 }
 
 /*!
@@ -242,7 +244,9 @@ function exchange() {
                                               this.neighborhoods.o.ID,
                                               this.protocol), 0);
 	}
-	if (this.partialView.length() === 0) {return;} // ugly return
+	if (this.partialView.length() === 0) {
+		return;
+	} // ugly return
     // #2 get a sample from our partial view
 	const sample = this.partialView.getSample(oldest, true);
     // #3 establish connections oldest -> sample

@@ -6,8 +6,8 @@
  */
 module.exports.MExchange = function (inview, outview, protocol) {
 	return {protocol: 'spray-wrtc',
-            type: 'MExchange',
-            inview,
-            outview,
-            protocol};
+		type: 'MExchange',
+		inview,
+		outview,
+		protocol};
 };
