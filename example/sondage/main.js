@@ -1,11 +1,19 @@
+var Spray = require("spray-wrtc");
 var Foglet = require("foglet");
 
 /**
  * Create the foglet protocol.
  * @param {[type]} {protocol:"chat"} [description]
  */
+ var spray = new Spray({
+   protocol:"chat",
+   webrtc:	{
+     trickle: true,
+     iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+   }
+ });
 var foglet = new Foglet({
-  protocol:"chat",
+  spray:spray,
   room:"sondage"
 });
 
@@ -43,34 +51,34 @@ function sendMessage(msg){
 }
 
 /**
- * Create a register named toto
- * @param {[type]} "toto" [description]
+ * Create a register named sondage
+ * @param {[type]} "sondage" [description]
  */
-foglet.addRegister("toto");
+foglet.addRegister("sondage");
 
 /**
  * Get the register
- * @param  {[type]} "toto" [description]
+ * @param  {[type]} "sondage" [description]
  * @return {[type]}        [description]
  */
-var toto = foglet.getRegister("toto");
+var sondage = foglet.getRegister("sondage");
 
 /**
- * Listening on the signal toto-receive where every data are sent when the register is updated.
- * @param  {[type]} "toto-receive" [description]
+ * Listening on the signal sondage-receive where every data are sent when the register is updated.
+ * @param  {[type]} "sondage-receive" [description]
  * @param  {[type]} function(data  [description]
  * @return {[type]}                [description]
  */
-toto.on("toto-receive",function(data){
-  changeData(toto.getValue());
+sondage.on("sondage-receive",function(data){
+  changeData(sondage.getValue());
 });
 
 /**
  * Set the register and update graph
  */
 function setVotes(value){
-  toto.setValue(value);
-  changeData(toto.getValue());
+  sondage.setValue(value);
+  changeData(sondage.getValue());
 }
 
 /**
@@ -78,7 +86,7 @@ function setVotes(value){
  * and update graph
  */
 function addYes(){
-  value = toto.getValue();
+  value = sondage.getValue();
   setVotes([++value[0],value[1]]);
 }
 
@@ -87,7 +95,7 @@ function addYes(){
  * and update graph
  */
 function addNo(){
-  value = toto.getValue();
+  value = sondage.getValue();
   setVotes([value[0],++value[1]]);
 }
 
@@ -95,4 +103,4 @@ function addNo(){
  * Set its value, and send by broadcast
  * @param {[type]}
  */
-toto.setValue([0,0]);
+sondage.setValue([0,0]);

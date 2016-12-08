@@ -207,8 +207,12 @@ PartialView.prototype.get = function () {
 function Comparator(a, b) {
 	const first = a.age || a;
 	const second = b.age || b;
-	if (first < second) { return -1;}
-	if (first > second) { return 1;}
+	if (first < second) {
+		return -1;
+	}
+	if (first > second) {
+		return 1;
+	}
 	return 0;
 }
 

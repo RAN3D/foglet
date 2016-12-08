@@ -2,7 +2,7 @@
  * \url https://github.com/justayak/yutils/blob/master/yutils.js
  * \author justayak
  */
-
+'use strict';
 /*!
  * \brief get a globally unique (with high probability) identifier
  * \return a string being the identifier

@@ -1,12 +1,30 @@
+var ldf = require("ldf-client");
 var Foglet = require("foglet");
+
 var cptQuery = 0;
+var ENDPOINT = 'http://fragments.dbpedia.org/2015/en';
+var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
+
+
+
 /**
- * Create the foglet protocol.
- * @param {[type]} {protocol:"chat"} [description]
- */
+* Create the foglet protocol.
+* @param {[type]} {protocol:"chat"} [description]
+*/
+var spray = new Spray({
+  protocol:"chat",
+  webrtc:	{
+    trickle: true,
+    iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+  }
+});
 var foglet = new Foglet({
   protocol:"chat",
-  room:"sparqlDistribution"
+  room:"sparqlDistribution",
+  ndp:{
+    ldf:ldf,
+    fragmentsClient:fragmentsClient
+  }
 });
 
 /**
