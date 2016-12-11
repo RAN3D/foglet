@@ -35,8 +35,7 @@
     "socket.io-client": "^1.4.8",
     "spray-wrtc": "^0.1.x",
     "util": "^0.10.3",
-    "version-vector-with-exceptions": "0.0.x",
-    "wrtc": "0.0.61"
+    "version-vector-with-exceptions": "0.0.x"
   },
   "bundledDependencies": [
     "version-vector-with-exceptions",
