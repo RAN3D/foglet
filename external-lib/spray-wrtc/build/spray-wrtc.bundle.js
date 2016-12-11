@@ -1381,7 +1381,7 @@ function objectToString(o) {
 }
 
 }).call(this,{"isBuffer":require("../../../../../../../../../node_modules/is-buffer/index.js")})
-},{"../../../../../../../../../node_modules/is-buffer/index.js":43}],16:[function(require,module,exports){
+},{"../../../../../../../../../node_modules/is-buffer/index.js":44}],16:[function(require,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -2035,7 +2035,7 @@ function nextTick(fn) {
 }
 
 }).call(this,require('_process'))
-},{"_process":44}],25:[function(require,module,exports){
+},{"_process":45}],25:[function(require,module,exports){
 // a duplex stream is just a stream that is both readable and writable.
 // Since JS doesn't have multiple prototypal inheritance, this class
 // prototypally inherits from Readable, and then parasitically from
@@ -3127,7 +3127,7 @@ function indexOf (xs, x) {
 }
 
 }).call(this,require('_process'))
-},{"./_stream_duplex":25,"_process":44,"buffer":39,"core-util-is":15,"events":41,"inherits":20,"isarray":21,"process-nextick-args":24,"string_decoder/":33,"util":37}],28:[function(require,module,exports){
+},{"./_stream_duplex":25,"_process":45,"buffer":39,"core-util-is":15,"events":41,"inherits":20,"isarray":21,"process-nextick-args":24,"string_decoder/":33,"util":37}],28:[function(require,module,exports){
 // a transform stream is a readable/writable stream where you do
 // something with the data.  Sometimes it's called a "filter",
 // but that's not a great name for it, since that implies a thing where
@@ -7099,6 +7099,8 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 }
 
 },{}],43:[function(require,module,exports){
+arguments[4][20][0].apply(exports,arguments)
+},{"dup":20}],44:[function(require,module,exports){
 /*!
  * Determine if an object is a Buffer
  *
@@ -7121,7 +7123,7 @@ function isSlowBuffer (obj) {
   return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
 }
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -7303,9 +7305,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],45:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"dup":20}],46:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
@@ -7902,7 +7902,7 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":46,"_process":44,"inherits":45}],"spray-wrtc":[function(require,module,exports){
+},{"./support/isBuffer":46,"_process":45,"inherits":43}],"spray-wrtc":[function(require,module,exports){
 const EventEmitter = require('events').EventEmitter;
 const NO = require('n2n-overlay-wrtc');
 const clone = require('clone');

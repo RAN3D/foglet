@@ -6,15 +6,16 @@ var Foglet = require("foglet");
  * @param {[type]} {protocol:"chat"} [description]
  */
  var spray = new Spray({
-   protocol:"chat",
+   protocol:"sprayExample",
    webrtc:	{
      trickle: true,
      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
    }
  });
 var foglet = new Foglet({
-  spray:spray,
-  room:"sondage"
+	spray: spray,
+	protocol: 'sprayExample',
+	room: 'sondage'
 });
 
 /**

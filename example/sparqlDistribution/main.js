@@ -1,3 +1,4 @@
+var Spray = require("spray-wrtc");
 var ldf = require("ldf-client");
 var Foglet = require("foglet");
 
@@ -12,14 +13,15 @@ var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
 * @param {[type]} {protocol:"chat"} [description]
 */
 var spray = new Spray({
-  protocol:"chat",
+  protocol:"sprayExample",
   webrtc:	{
     trickle: true,
     iceServers: [{urls: ['stun:23.21.150.121:3478']}]
   }
 });
 var foglet = new Foglet({
-  protocol:"chat",
+	spray:spray,
+  protocol:"sprayExample",
   room:"sparqlDistribution",
   ndp:{
     ldf:ldf,
