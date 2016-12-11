@@ -1,10 +1,19 @@
+var Spray = require("spray-wrtc");
 var Foglet = require("foglet");
+
+var spray = new Spray({
+	protocol:"sprayExample",
+	webrtc:	{
+		trickle: true,
+		iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+	}
+});
 
 /**
  * Create the foglet protocol.
  * @param {[type]} {protocol:"chat"} [description]
  */
-var foglet = new Foglet({protocol:"chat",room:"montecarlo"});
+var foglet = new Foglet({spray:spray, protocol:"sprayExample",room:"montecarlo"});
 
 /**
  * Init the foglet
@@ -39,41 +48,41 @@ function sendMessage(msg){
 }
 
 /**
- * Create a register named toto
- * @param {[type]} "toto" [description]
+ * Create a register named montecarlo
+ * @param {[type]} "montecarlo" [description]
  */
-foglet.addRegister("toto");
+foglet.addRegister("montecarlo");
 
 /**
  * Get the register
- * @param  {[type]} "toto" [description]
+ * @param  {[type]} "montecarlo" [description]
  * @return {[type]}        [description]
  */
-var toto = foglet.getRegister("toto");
+var montecarlo = foglet.getRegister("montecarlo");
 
 /**
- * Listening on the signal toto-receive where every data are sent when the register is updated.
- * @param  {[type]} "toto-receive" [description]
+ * Listening on the signal montecarlo-receive where every data are sent when the register is updated.
+ * @param  {[type]} "montecarlo-receive" [description]
  * @param  {[type]} function(data  [description]
  * @return {[type]}                [description]
  */
-toto.on("toto-receive",function(data){
-  changeData(toto.getValue());
+montecarlo.on("montecarlo-receive",function(data){
+  changeData(montecarlo.getValue());
 });
 
 /**
  * Set the register and update graph
  */
 function setVotes(value){
-  toto.setValue(value);
-  changeData(toto.getValue());
+  montecarlo.setValue(value);
+  changeData(montecarlo.getValue());
 }
 
 /**
  * Set its value, and send by broadcast
  * @param {[type]}
  */
-toto.setValue([0,1]);
+montecarlo.setValue([0,1]);
 
 /**
  * init local canvas (Monte carlo graph)
@@ -103,12 +112,10 @@ setInterval(drawPoints, 10);
  * Update the register
  */
 function updateRegister() {
-	var data = toto.getValue();
+	var data = montecarlo.getValue();
 	var dataToSet = [data[0]+localData[0]-previousUpdate[0], data[1]+localData[1]-previousUpdate[1]];
-	toto.setValue(dataToSet);
+	montecarlo.setValue(dataToSet);
 	previousUpdate = [localData[0], localData[1]];
 }
 
 setInterval(updateRegister, 4000);
-
-
