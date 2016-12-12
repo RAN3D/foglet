@@ -22,7 +22,7 @@ module.exports = function (config) {
 		],
 		// list of files / patterns to load in the browser
 		files: [
-			'build/foglet.all.bundle.js',
+			'external-lib/spray-wrtc/build/spray-wrtc.bundle.js',
 			'test/fexceptionsTest.js',
 			'test/fogletTest.js',
 			'test/ndpTest.js',
@@ -35,20 +35,19 @@ module.exports = function (config) {
 		},
 		// list of files to exclude
 		exclude: [
-			'external-lib/**/*.js'
+			'example/**/*.js'
 		],
 		// browserify with babelify
 		browserify: {
 			debug: true,
-			transform: [ ['babelify', {presets: ["es2015"]}] ],
+			transform: [ ['babelify', {presets: ["es2015"]}], 'browserify-istanbul' ],
 			configure: function(bundle) {
-        bundle.on('prebundle', function() {
-          bundle.external('spray-wrtc');
-					bundle.external('foglet');
-					bundle.external('ldf-client');
-        });
-      }
+			 bundle.on('prebundle', function() {
+				 bundle.external(['spray-wrtc','foglet']);
+			 });
+		 }
 		},
+		extensions: ['.js'],
 		proxies : {
 			'./': 'http://localhost:3000'
 		},
@@ -99,25 +98,26 @@ module.exports = function (config) {
         }
     },
     reporters: ['coverage', 'mocha'],
+
 		coverageReporter: {
       // specify a common output directory
       dir: 'coverage',
       reporters: [
         // reporters not supporting the `file` property
-        { type: 'html', subdir: 'report-html' },
-        { type: 'lcov', subdir: 'report-lcov' },
+        //{ type: 'html', subdir: 'report-html' },
+        //{ type: 'lcov', subdir: 'report-lcov' },
         // reporters supporting the `file` property, use `subdir` to directly
         // output them in the `dir` directory
         { type: 'cobertura', subdir: '.', file: 'cobertura.txt' },
-        { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },
-        { type: 'teamcity', subdir: '.', file: 'teamcity.txt' },
+        { type: 'lcovonly', subdir: '.' },
         { type: 'text', subdir: '.', file: 'text.txt' },
-        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' },
+        { type: 'text-summary', subdir: '.'  },
       ],
 			instrumenterOptions: {
         istanbul: { noCompact: false }
       }
     },
+
     logLevel: config.LOG_DISABLE,
 		// Continuous Integration mode
 		// if true, Karma captures browsers, runs the tests and exits

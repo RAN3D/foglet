@@ -1,4 +1,5 @@
 var Spray = require("spray-wrtc");
+
 var Foglet = require('../lib/foglet.js');
 var FRegister = require('../lib/fregister.js').FRegister;
 var InitConstructException = require('../lib/fexceptions.js').InitConstructException;
@@ -23,6 +24,7 @@ describe('[FOGLET:INIT]', function () {
 		it('init() throw a ConstructException when needed options are undefined', function () {
 			var fn = function () {
 				(new Foglet({
+					spray:null,
 					protocol: null,
 					room: null
 				}))();

@@ -1,4 +1,3 @@
-
 var InitConstructException = require('../lib/fexceptions.js').InitConstructException;
 var ConstructException = require('../lib/fexceptions.js').ConstructException;
 var FRegisterConstructException = require('../lib/fexceptions.js').FRegisterConstructException;

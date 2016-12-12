@@ -1,4 +1,4 @@
-# Foglet
+# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet)
 
 It is a Capstone Project for Fog Computing in Browsers.
 
