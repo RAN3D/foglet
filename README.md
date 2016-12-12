@@ -53,9 +53,11 @@ Or you can run the following command to run both commands with concurrently :
 npm run server
 ```
 
-Now open http://localhost:3000/sondage
-Now open http://localhost:3000/montecarlo
-Now open http://localhost:3000/sparqlDistribution
+Now open [Sondage Example](http://localhost:3000/sondage)
+
+Now open [Montecarlo Example](http://localhost:3000/montecarlo)
+
+Now open [Sparql Distribution Example](http://localhost:3000/sparqlDistribution)
 
 System functionning :
 * 1 user connected : nothing to do
