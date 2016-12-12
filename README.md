@@ -27,10 +27,11 @@ npm run build
 npm run build-watch
 ```
 
-The bundle provided offers you to :
-- ```javascript require("foglet") ```
-- ```javascript require("spray-wrtc") ```
-- ```javascript require("ldf-client") ```
+The bundle provided offers you to write those requires into your browser script :
+- ``` require("foglet") ```
+- ``` require("spray-wrtc") ```
+- ``` require("ldf-client") ```
+
 
 ## Run the example
 Pre-condition: foglet.all.bundle.js built
