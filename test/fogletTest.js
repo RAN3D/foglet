@@ -1,13 +1,14 @@
-// var assert = require('chai').assert;
-// var expect = require('chai').expect;
-// var mocha = require('mocha');
-
+var Spray = require("spray-wrtc");
 var Foglet = require('../lib/foglet.js');
 var FRegister = require('../lib/fregister.js').FRegister;
 var InitConstructException = require('../lib/fexceptions.js').InitConstructException;
 var ConstructException = require('../lib/fexceptions.js').ConstructException;
 var FRegisterConstructException = require('../lib/fexceptions.js').FRegisterConstructException;
 var FRegisterAddException = require('../lib/fexceptions.js').FRegisterAddException;
+
+/*************************************************************
+ *************************************************************
+ *************************************************************/
 
 describe('[FOGLET:INIT]', function () {
 	describe('#Init without option', function () {
@@ -30,6 +31,13 @@ describe('[FOGLET:INIT]', function () {
 		});
 		it('init() set the correct status with correct options', function () {
 			var f = new Foglet({
+				spray: new Spray({
+					protocol:"test",
+			    webrtc:	{
+			      trickle: true,
+			      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+			    }
+				}),
 				protocol: 'test',
 				room: 'test'
 			});
@@ -40,10 +48,24 @@ describe('[FOGLET:INIT]', function () {
 		this.timeout(15000);
 		it('connection return connected as status', function (done) {
 			var f = new Foglet({
+				spray: new Spray({
+					protocol:"test",
+			    webrtc:	{
+			      trickle: true,
+			      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+			    }
+				}),
 				protocol: 'test',
 				room: 'test'
 			});
 			var f1 = new Foglet({
+				spray: new Spray({
+					protocol:"test",
+			    webrtc:	{
+			      trickle: true,
+			      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+			    }
+				}),
 				protocol: 'test',
 				room: 'test'
 			});
@@ -87,6 +109,13 @@ describe('[FOGLET:FREGISTER]', function () {
 		it('should have options', function () {
 			var fn = function () {
 				var f = new Foglet({
+					spray: new Spray({
+						protocol:"test",
+				    webrtc:	{
+				      trickle: true,
+				      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+				    }
+					}),
 					protocol: 'test',
 					room: 'test'
 				});
@@ -96,6 +125,13 @@ describe('[FOGLET:FREGISTER]', function () {
 		});
 		it('set a value and return the correct value', function () {
 			var f = new Foglet({
+				spray: new Spray({
+					protocol:"test",
+			    webrtc:	{
+			      trickle: true,
+			      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+			    }
+				}),
 				protocol: 'test',
 				room: 'test'
 			});
@@ -103,41 +139,6 @@ describe('[FOGLET:FREGISTER]', function () {
 			f.addRegister('test');
 			f.getRegister('test').setValue('a_value');
 			assert.equal(f.getRegister('test').getValue(), 'a_value', 'Return the correct value');
-		});
-	});
-});
-
-describe('[FOGLET:EXCEPTION]', function () {
-	describe('#InitConstructException has 2 properties', function () {
-		it('has property named InitConstructException', function () {
-			expect(new InitConstructException()).to.have.property('name', 'InitConstructException');
-		});
-		it('has property message', function () {
-			expect(new InitConstructException()).to.have.property('message');
-		});
-	});
-	describe('#ConstructException has 2 properties', function () {
-		it('has property named ConstructException', function () {
-			expect(new ConstructException()).to.have.property('name', 'ConstructException');
-		});
-		it('has property message', function () {
-			expect(new ConstructException()).to.have.property('message');
-		});
-	});
-	describe('#FRegisterConstructException has 2 properties', function () {
-		it('has property named FRegisterConstructException', function () {
-			expect(new FRegisterConstructException()).to.have.property('name', 'FRegisterConstructException');
-		});
-		it('has property message', function () {
-			expect(new FRegisterConstructException()).to.have.property('message');
-		});
-	});
-	describe('#FRegisterAddException has 2 properties', function () {
-		it('has property named FRegisterAddException', function () {
-			expect(new FRegisterAddException()).to.have.property('name', 'FRegisterAddException');
-		});
-		it('has property message', function () {
-			expect(new FRegisterConstructException()).to.have.property('message');
 		});
 	});
 });
