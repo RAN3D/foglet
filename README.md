@@ -6,31 +6,34 @@ This project aims to provide examples for Spray-wrtc protocol created by Chat-Wa
 
 ## Installation
 
-Built and test with Node :  **v4.6.0**, **v7.0.0**
+Built and test with Node :  **v7.0.0**
 
-Built and test with NPM  : **v2.15.9**, **v3.10.8**
+Built and test with NPM  :  **v3.10.8**
 
 Assume you have node and npm (Node Packet Manager) installed :
 ```bash
-git clone http://gitlab.com/folkvir/foglet.git
+git clone http://github.com/folkvir/foglet.git
 cd foglet
 npm install
 ```
 
 ## Build
-To build foglet.js and its dependencies run following commands :
+To build foglet.all.bundle.js and its dependencies run following commands :
 
 ```bash
 #Production mode
 npm run build
-#Debug mode
-npm run build-debug
 #Debug and Watch mode in order to recompile all modified code in ./lib
-npm run build-debug-watch
+npm run build-watch
 ```
 
+The bundle provided offers you to :
+- ```javascript require("foglet") ```
+- ```javascript require("spray-wrtc") ```
+- ```javascript require("ldf-client") ```
+
 ## Run the example
-Pre-condition: foglet.bundle.debug.js built
+Pre-condition: foglet.all.bundle.js built
 
 Firstly we have to run a signaling server !
 ```bash
@@ -51,6 +54,7 @@ npm run server
 
 Now open http://localhost:3000/sondage
 Now open http://localhost:3000/montecarlo
+Now open http://localhost:3000/sparqlDistribution
 
 System functionning :
 * 1 user connected : nothing to do
@@ -84,6 +88,19 @@ npm run karma #Will execute karma start karma.config.js
 ```
 
 It will runs tests under a browser, by default : Firefox, but you can easily change it in the config file.
+
+In order to have coverage for test files :
+```bash
+npm run cover
+```
+It will produce coverage in the folder ./coverage.
+The coverage is assumed by nyc (https://github.com/istanbuljs/nyc)
+
+## Soon (Priority order)
+
+- Travis support
+- coveralls support
+- Signaling server on Heroku
 
 
 ## References
