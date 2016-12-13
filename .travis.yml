@@ -1,6 +1,9 @@
 language: node_js
 node_js: node
 
+addons:
+  firefox: "49.0"
+
 install: npm install
 
 before_script:
