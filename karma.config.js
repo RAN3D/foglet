@@ -115,7 +115,7 @@ module.exports = function (config) {
         { type: 'text-summary', subdir: '.'  },
       ],
 			instrumenterOptions: {
-        istanbul: { noCompact: false }
+        istanbul: { noCompact: true }
       }
     },
 

@@ -44,6 +44,7 @@ describe('[FOGLET:INIT]', function () {
 				room: 'test'
 			});
 			assert(f.status, 'initialized', 'Return a correct status after initialization');
+			f.disconnect();
 		});
 	});
 	describe('#Connection', function () {
@@ -72,17 +73,19 @@ describe('[FOGLET:INIT]', function () {
 				room: 'test'
 			});
 			f.init();
+			f1.init();
 			// @Firefox: we are waiting for the initialization is well established.
 			setTimeout(function(){
-				f1.init();
 				f1.connection().then(function(){
 					assert(f.status, f1.status, "status need to be 'connected' !");
 					done();
 				},function(error){
+					console.log(error);
 					done();
 				});
 			}, 2000);
-
+			f.disconnect();
+			f1.disconnect();
 		});
 	});
 });
@@ -107,8 +110,8 @@ describe('[FOGLET:FREGISTER]', function () {
 			expect(fn).to.throw(FRegisterConstructException);
 		});
 	});
-	describe('#addRegister  (run if a signaling server is running)', function () {
-		it('should have options', function () {
+	describe('#addRegister with well-formed options', function () {
+		it('A register should have a name', function () {
 			var fn = function () {
 				var f = new Foglet({
 					spray: new Spray({
@@ -140,7 +143,49 @@ describe('[FOGLET:FREGISTER]', function () {
 			f.init();
 			f.addRegister('test');
 			f.getRegister('test').setValue('a_value');
-			assert.equal(f.getRegister('test').getValue(), 'a_value', 'Return the correct value');
+			let result = f.getRegister('test').getValue();
+			assert.equal(result, 'a_value', 'Return the correct value');
+			f.disconnect();
 		});
+		it('AntyEntropy test',function(){
+			var f = new Foglet({
+				spray: new Spray({
+					protocol:"test",
+			    webrtc:	{
+			      trickle: true,
+			      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+			    }
+				}),
+				protocol: 'test',
+				room: 'test'
+			});
+			var f2 = new Foglet({
+				spray: new Spray({
+					protocol:"test",
+			    webrtc:	{
+			      trickle: true,
+			      iceServers: [{urls: ['stun:23.21.150.121:3478']}]
+			    }
+				}),
+				protocol: 'test',
+				room: 'test'
+			});
+			f.init();
+			f2.init();
+			f.addRegister('test');
+			var register = f.getRegister("test");
+			register.setValue("toto");
+			f.connection();
+			f2.connection();
+			f2.addRegister('test');
+			var register2 = f2.getRegister("test");
+			//code before the pause
+			setTimeout(function(){
+			    var val = resgiter2.getValue();
+					assert(val,'toto','Should be the right value.');
+					f.disconnect();
+					f2.disconnect();
+			}, 2000);
+		})
 	});
 });
