@@ -12,4 +12,5 @@ script:
   - npm run build-spray #Build
   - npm run build-debug
   - npm run build
+  - ls -R ./build ./lib
   - npm test
