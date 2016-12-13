@@ -17,3 +17,4 @@ script:
   - npm run build
   - ls -R ./build ./lib
   - npm test
+  - npm run cover
