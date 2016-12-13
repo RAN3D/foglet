@@ -1,4 +1,4 @@
-# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet)
+# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master)
 
 It is a Capstone Project for Fog Computing in Browsers.
 
@@ -101,8 +101,8 @@ The coverage is assumed by nyc (https://github.com/istanbuljs/nyc)
 
 ## Soon (Priority order)
 
-- Travis support
-- coveralls support
+- [Done] Travis support
+- [Done] coveralls support
 - Signaling server on Heroku
 
 
