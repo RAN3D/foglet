@@ -3,8 +3,13 @@ node_js: node
 
 install: npm install
 
+before_script:
+  - "export DISPLAY=:99.0" #Start a screen for Firefox...
+  - "sh -e /etc/init.d/xvfb start" #Start a screen for Firefox...
+  - sleep 3 # give xvfb some time to start
+
 script:
-  - npm run build-spray
+  - npm run build-spray #Build
   - npm run build-debug
   - npm run build
   - npm test
