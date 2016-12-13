@@ -22,7 +22,7 @@ module.exports = function (config) {
 		],
 		// list of files / patterns to load in the browser
 		files: [
-			'external-lib/spray-wrtc/build/spray-wrtc.bundle.js',
+			'external-lib/spray-wrtc/build/spray-wrtc.bundle.debug.js',
 			'test/fexceptionsTest.js',
 			'test/fogletTest.js',
 			'test/ndpTest.js',

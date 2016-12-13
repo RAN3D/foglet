@@ -5,6 +5,7 @@ node_js:
 install: npm install
 
 script:
+  - npm run build-spray
   - npm run build-debug
   - npm run build
   - npm test
