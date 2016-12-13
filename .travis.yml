@@ -12,9 +12,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 
 script:
-  - npm run build-spray #Build
-  - npm run build-debug
-  - npm run build
+  - npm run build:all
   - ls -R ./build ./lib
   - npm test
   - npm run cover
