@@ -12,7 +12,7 @@
     "karma": "karma start karma.config.js",
     "proper": "xo --fix ./lib/**/*.js ",
 		"cover":"cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "install": "npm install && concurrently \"npm run install:spray\" \"npm run install:signaling\" \"npm run install:linked-data\"",
+    "install:all": "concurrently \"npm run install:spray\" \"npm run install:signaling\" \"npm run install:linked-data\"",
     "install:spray": "cd ./external-lib/spray-wrtc && npm install",
     "install:linked-data": "cd ./external-lib/Client.js-master/ && npm install",
     "install:signaling": "cd ./example/signaling-server && npm install",
@@ -24,7 +24,8 @@
     "server": "concurrently \"npm run http-server\"  \"npm run signaling-server\"",
     "dev-all": "concurrently \"npm run http-server\"  \"npm run signaling-server\" \"npm run build-watch\"",
     "http-server": "cd example && node http-server.js",
-    "signaling-server": "cd example/signaling-server && node server.js"
+    "signaling-server": "cd example/signaling-server && node server.js",
+		"heroku-postbuild": "npm install && npm run install:all"
   },
 	"cacheDirectories": ["node_modules", "build"],
   "author": "",
