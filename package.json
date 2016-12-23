@@ -25,7 +25,7 @@
     "dev-all": "concurrently \"npm run http-server\"  \"npm run signaling-server\" \"npm run build-watch\"",
     "http-server": "cd example && node http-server.js",
     "signaling-server": "cd example/signaling-server && node server.js",
-		"heroku-postbuild": "npm install && npm run install:all"
+		"heroku-postbuild": "npm install && npm run install:all && npm run build:all"
   },
 	"cacheDirectories": ["node_modules", "build"],
   "author": "",
