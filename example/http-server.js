@@ -2,6 +2,7 @@ var express = require("express");
 var app = express();
 var http = require('http').Server(app);
 
+var port = process.env.PORT || 3000;
 var number = 0;
 var joinningPeer = null;
 
@@ -11,6 +12,6 @@ app.get('/:name', function(req, res){
   res.sendFile(__dirname + "/"+req.params.name+"/index.html");
 });
 
-http.listen(3000, function () {
+http.listen(port, function () {
   console.log('HTTP Server listening on port 3000');
 });
