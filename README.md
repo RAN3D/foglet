@@ -1,4 +1,4 @@
-# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master)
+# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master) [![Heroku Support](https://img.shields.io/badge/Heroku-In%20Progress-yellow.svg)](https://foglet-examples.herokuapp.com/)
 
 It is a Capstone Project for Fog Computing in Browsers.
 
@@ -15,16 +15,17 @@ Assume you have node and npm (Node Packet Manager) installed :
 git clone http://github.com/folkvir/foglet.git
 cd foglet
 npm install
+npm install:all
 ```
 
 ## Build
 To build foglet.all.bundle.js and its dependencies run following commands :
 
 ```bash
-#Production mode
-npm run build
+#In order to build all files
+npm run build:all
 #Debug and Watch mode in order to recompile all modified code in ./lib
-npm run build-watch
+npm run build:watch
 ```
 
 The bundle provided offers you to write those requires into your browser script :
@@ -52,6 +53,7 @@ Or you can run the following command to run both commands with concurrently :
 ```bash
 npm run server
 ```
+All links are in http://localhost:3000/ (or available on http://foglet-examples.herokuapp.com/)
 
 Now open [Sondage Example](http://localhost:3000/sondage)
 
