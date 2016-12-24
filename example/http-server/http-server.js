@@ -1,13 +1,19 @@
+var path = require('path');
 var express = require("express");
 var app = express();
 var http = require('http').Server(app);
 
 var io = require("socket.io")(http);
+var port = process.env.PORT || 3000;
 
 var number = 0;
 var joinningPeer = null;
 
-app.use(express.static(__dirname + "/"));
+app.use('/static', express.static(__dirname + "/../../"));
+
+app.get('/:name', function(req, res){
+  res.sendFile(path.resolve(__dirname+"/../"+req.params.name+"/index.html"));
+});
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + "/index.html");
@@ -50,7 +56,6 @@ io.on('connection', function(socket){
   });
 });
 
-
-http.listen(4000, function () {
-  console.log('Signaling server listening on port 4000');
+http.listen(port, function () {
+  console.log('HTTP Server listening on port '+port);
 });
