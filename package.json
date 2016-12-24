@@ -24,7 +24,7 @@
     "build:spray": "browserify -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 --debug > ./build/spray-wrtc.bundle.debug.js ",
     "server": "cd example/http-server && node http-server.js",
     "dev-all": "concurrently \"npm run server\" \"npm run build:watch\"",
-    "heroku-postbuild": "npm install && npm run install:all && npm run build:foglet-heroku"
+    "heroku-postbuild": "npm install && npm run install:all && npm run build:spray && npm run build:foglet-heroku"
   },
   "cacheDirectories": [
     "node_modules",
