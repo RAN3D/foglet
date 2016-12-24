@@ -3,62 +3,64 @@ var ldf = require("ldf-client");
 var Foglet = require("foglet");
 
 var cptQuery = 0;
-var ENDPOINT = 'https://fragments.dbpedia.org/2015/en';
+var ENDPOINT = 'http://fragments.dbpedia.org/2015/en';
 var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
 
-
-/**
-* Create the foglet protocol.
-* @param {[type]} {protocol:"chat"} [description]
-*/
-var spray = new Spray({
-  protocol:"sprayExample",
-  webrtc:	{
-    trickle: true,
-    iceServers: [{urls: ['stun:23.21.150.121:3478',
-      'stun:stun.l.google.com:19305',
-      'stun:stun2.l.google.com:19305',
-      'stun:stun3.l.google.com:19305',
-      'stun:stun4.l.google.com:19305',
-    ]}]
+$.ajax({
+  url : "https://service.xirsys.com/ice",
+  data : {
+    ident: "folkvir",
+    secret: "a0fe3e18-c9da-11e6-8f98-9ac41bd47f24",
+    domain: "foglet-examples.herokuapp.com",
+    application: "foglet-examples",
+    room: "montecarlo",
+    secure: 1
   }
+  , success:function(response, status){
+    console.log(status);
+    console.log(response);
+    /**
+     * Create the foglet protocol.
+     * @param {[type]} {protocol:"chat"} [description]
+     */
+     if(response.d.iceServers){
+       iceServers = response.d.iceServers;
+     }
+     spray = new Spray({
+       protocol:"sprayExample",
+       webrtc:	{
+         trickle: true,
+         iceServers: iceServers
+       }
+     });
+    foglet = new Foglet({
+      spray:spray,
+      protocol:"sprayExample",
+      room:"sparqlDistribution",
+      ndp:{
+        ldf:ldf,
+        fragmentsClient:fragmentsClient
+      }
+    });
+		foglet.init();
+    foglet.connection();
+    /**
+     * Not usefull, it's just in case of a received message from Foglet
+     * @param  {[type]} "receive"        [description]
+     * @param  {[type]} function(message [description]
+     * @return {[type]}                  [description]
+     */
+    foglet.on("receive",function(message){
+      console.log(message);
+    	var resultPanel = document.createElement('div');
+    	resultPanel.append('query ' + id + ' result' + '\n');
+    	document.getElementById('resultPanel').appendChild(resultPanel);
+    	resultPanel.append(JSON.stringify(result) + '\n');
+    });
+
+
+	}
 });
-var foglet = new Foglet({
-	spray:spray,
-  protocol:"sprayExample",
-  room:"sparqlDistribution",
-  ndp:{
-    ldf:ldf,
-    fragmentsClient:fragmentsClient
-  }
-});
-
-/**
- * Init the foglet
- * @return {[type]} [description]
- */
-foglet.init();
-
-/**
- * Not usefull, it's just in case of a received message from Foglet
- * @param  {[type]} "receive"        [description]
- * @param  {[type]} function(message [description]
- * @return {[type]}                  [description]
- */
-foglet.on("receive",function(message){
-  console.log(message);
-	var resultPanel = document.createElement('div');
-	resultPanel.append('query ' + id + ' result' + '\n');
-	document.getElementById('resultPanel').appendChild(resultPanel);
-	resultPanel.append(JSON.stringify(result) + '\n');
-});
-
-
-/**
- * Connect the client to another peer of the network.
- * @return {[type]} [description]
- */
-  foglet.connection();
 
 
 /**
