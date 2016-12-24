@@ -3,9 +3,8 @@ var ldf = require("ldf-client");
 var Foglet = require("foglet");
 
 var cptQuery = 0;
-var ENDPOINT = 'http://fragments.dbpedia.org/2015/en';
+var ENDPOINT = 'https://fragments.dbpedia.org/2015/en';
 var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
-
 
 
 /**
