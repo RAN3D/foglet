@@ -18,12 +18,13 @@
     "install:http": "cd ./example/http-server/ && npm install",
     "build:all": "concurrently \"npm run build:spray\" \"npm run build:foglet\" \"npm run build:debug\"",
     "build:foglet": "browserify -r ./lib/foglet.js:foglet -t envify -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 > ./build/foglet.all.bundle.js ",
+    "build:foglet-heroku": "browserify -r ./lib/foglet.js:foglet -t [ envify --HOST foglet-examples.herokuapp.com ] -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 > ./build/foglet.all.bundle.js ",
     "build:debug": "browserify -r ./lib/foglet.js:foglet -t envify -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc --debug -t babelify --presets es2015 > ./build/foglet.all.bundle.debug.js  ",
     "build:watch": "watchify -r ./lib/foglet.js:foglet -t envify -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 -o ./build/foglet.all.bundle.js -v -d ",
     "build:spray": "browserify -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 --debug > ./build/spray-wrtc.bundle.debug.js ",
     "server": "cd example/http-server && node http-server.js",
     "dev-all": "concurrently \"npm run server\" \"npm run build:watch\"",
-    "heroku-postbuild": "npm install && npm run install:all && npm run build:all"
+    "heroku-postbuild": "npm install && npm run install:all && npm run build:foglet-heroku"
   },
   "cacheDirectories": [
     "node_modules",
