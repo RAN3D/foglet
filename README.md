@@ -1,4 +1,4 @@
-# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master) [![Heroku Support](https://img.shields.io/badge/Heroku-online-brightgreen.svg)](https://foglet-examples.herokuapp.com/) [![XirSys WebRTC Cloud Support](https://img.shields.io/badge/XirSys%20Cloud-used-blue.svg)](http://xirsys.com/)
+# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master) [![Heroku Support](https://img.shields.io/badge/Heroku-online-brightgreen.svg)](http://foglet-examples.herokuapp.com/) [![XirSys WebRTC Cloud Support](https://img.shields.io/badge/XirSys%20Cloud-used-blue.svg)](http://xirsys.com/)
 
 It is a Capstone Project for Fog Computing in Browsers.
 
@@ -88,7 +88,7 @@ In order to have coverage for test files with the plugin Coveralls:
 npm run cover
 ```
 It will produce coverage in the folder ./coverage.
-The coverage is avalaible on Coveralls (see on top of the readme)
+The coverage is available on Coveralls (see at the top of the readme)
 
 ## References
 
