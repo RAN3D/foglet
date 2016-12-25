@@ -21,7 +21,7 @@ $.ajax({
     secret: "a0fe3e18-c9da-11e6-8f98-9ac41bd47f24",
     domain: "foglet-examples.herokuapp.com",
     application: "foglet-examples",
-    room: "sarqldistribution",
+    room: "sparqldistribution",
     secure: 1
   }
   , success:function(response, status){

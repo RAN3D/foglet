@@ -83,19 +83,12 @@ npm run karma #Will execute karma start karma.config.js
 
 It will runs tests under a browser, by default : Firefox, but you can easily change it in the config file.
 
-In order to have coverage for test files :
+In order to have coverage for test files with the plugin Coveralls:
 ```bash
 npm run cover
 ```
 It will produce coverage in the folder ./coverage.
-The coverage is assumed by nyc (https://github.com/istanbuljs/nyc)
-
-## Soon (Priority order)
-
-- [Done] Travis support
-- [Done] coveralls support
-- Signaling server on Heroku
-
+The coverage is avalaible on Coveralls (see on top of the readme)
 
 ## References
 
