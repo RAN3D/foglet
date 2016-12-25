@@ -1,4 +1,4 @@
-# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master) [![Heroku Support](https://img.shields.io/badge/Heroku-In%20Progress-yellow.svg)](https://foglet-examples.herokuapp.com/)
+# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master) [![Heroku Support](https://img.shields.io/badge/Heroku-online-brightgreen.svg)](https://foglet-examples.herokuapp.com/) [![XirSys WebRTC Cloud Support](https://img.shields.io/badge/XirSys%20Cloud-used-blue.svg)](http://xirsys.com/)
 
 It is a Capstone Project for Fog Computing in Browsers.
 
@@ -37,23 +37,12 @@ The bundle provided offers you to write those requires into your browser script 
 ## Run the example
 Pre-condition: foglet.all.bundle.js built
 
-Firstly we have to run a signaling server !
-```bash
-cd example/signaling-server
-node server.js
-```
-
-Secondly run your http server  :
-```bash
-cd example/
-node http-server.js
-```
-
-Or you can run the following command to run both commands with concurrently :
+Firstly we have to run a signaling server, and an http server, we have both in one server !
 ```bash
 npm run server
 ```
-All links are in http://localhost:3000/ (or available on http://foglet-examples.herokuapp.com/)
+
+Secondly, all links are in http://localhost:3000/ (or available on http://foglet-examples.herokuapp.com/)
 
 Now open [Sondage Example](http://localhost:3000/sondage)
 

@@ -14,7 +14,6 @@
     <script type="text/javascript" src="/static/example/http-server/node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
     <script type="text/javascript" src="/static/build/foglet.all.bundle.js"> </script>
     <script type="text/javascript" src="/static/example/sparqlDistribution/main.js"> </script>
-	<script type="text/javascript" src="/static/example/sparqlDistribution/queryManager.js"> </script>
 </head>
 
 <body class="container">
@@ -25,15 +24,16 @@
 		<div class="panel panel-primary col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px;">
 			<div class="panel-heading">
 			  <h3 class="panel-title">SPARQL Queries</h3>
+        <p> This is a list of different kind of query in the <a href="https://query.wikidata.org/bigdata/ldf" style="color:black">Wikidata endpoint</a> </p>
 			</div>
 			<div class="panel-body">
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
 						<textarea class="form-control" rows="5" id="queries">
 						[
-							"SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } LIMIT 100",
-							"SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } OFFSET 100 LIMIT 100",
-							"SELECT * { ?s ?p <http://dbpedia.org/resource/Belgium>. ?s ?p ?o } OFFSET 200 LIMIT 100"
+                "CONSTRUCT WHERE { ?s ?p ?o .} LIMIT 100 ",
+                " PREFIX wd: <http://www.wikidata.org/entity/> SELECT * WHERE { ?s ?p wd:Q142. ?s ?p ?o . } LIMIT 100",
+                " PREFIX wd: <http://www.wikidata.org/entity/> SELECT * WHERE { ?s ?p wd:Q142. ?s ?p ?o . } OFFSET 100 LIMIT 200"
 						]
 						</textarea>
 					</div>

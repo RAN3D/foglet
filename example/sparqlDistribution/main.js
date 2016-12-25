@@ -2,8 +2,16 @@ var Spray = require("spray-wrtc");
 var ldf = require("ldf-client");
 var Foglet = require("foglet");
 
+/**
+ * will contains the queries in the textArea
+ */
+var queries;
+/**
+ * will contains the results of each queries
+ */
+var queriesResults;
 var cptQuery = 0;
-var ENDPOINT = 'http://fragments.dbpedia.org/2015/en';
+var ENDPOINT = 'https://query.wikidata.org/bigdata/ldf';
 var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
 
 $.ajax({
@@ -13,7 +21,7 @@ $.ajax({
     secret: "a0fe3e18-c9da-11e6-8f98-9ac41bd47f24",
     domain: "foglet-examples.herokuapp.com",
     application: "foglet-examples",
-    room: "montecarlo",
+    room: "sarqldistribution",
     secure: 1
   }
   , success:function(response, status){
@@ -36,7 +44,7 @@ $.ajax({
     foglet = new Foglet({
       spray:spray,
       protocol:"sprayExample",
-      room:"sparqlDistribution",
+      room:"sparqldistribution",
       ndp:{
         ldf:ldf,
         fragmentsClient:fragmentsClient
@@ -51,7 +59,7 @@ $.ajax({
      * @return {[type]}                  [description]
      */
     foglet.on("receive",function(message){
-      console.log(message);
+      //console.log(message);
     	var resultPanel = document.createElement('div');
     	resultPanel.append('query ' + id + ' result' + '\n');
     	document.getElementById('resultPanel').appendChild(resultPanel);
@@ -61,24 +69,6 @@ $.ajax({
 
 	}
 });
-
-
-/**
- * will contains the queries in the textArea
- */
-var queries;
-/**
- * will contains the results of each queries
- */
-var queriesResults;
-
-/**
- * convert the value of the textArea into a javascript object
- */
-function text2Object(){
-	var textQueries = document.getElementById('queries').value;
-	queries = JSON.parse(textQueries);
-}
 
 /**
  * convert the value and send to other browsers
@@ -96,4 +86,32 @@ function onReceiveAnswer(msg){
 		displayResult(msg.payload[i],cptQuery);
 		++cptQuery;
 	}
+}
+
+/**
+ * convert the value of the textArea into a javascript object
+ */
+function text2Object(){
+	var textQueries = document.getElementById('queries').value;
+	queries = JSON.parse(textQueries);
+}
+
+/**
+ * @param query the query to execute
+ * @param id the index of the query
+ */
+function displayResult(queryResult,id) {
+	var resultPanel = document.createElement('div');
+	resultPanel.textContent = 'query ' + id + ' result' + '\n';
+	document.getElementById('resultPanel').appendChild(resultPanel);
+	var table = document.createElement("table");
+	table.className += "resultTab";
+	for (let i = 0; i < queryResult.length; ++i) {
+		var tr = document.createElement("tr");
+		var td = document.createElement("td");
+		td.innerHTML = queryResult[i];
+		tr.appendChild(td);
+		table.appendChild(tr);
+	}
+	resultPanel.appendChild(table);
 }
