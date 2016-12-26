@@ -6,7 +6,7 @@ var InitConstructException = require('../lib/fexceptions.js').InitConstructExcep
 var ConstructException = require('../lib/fexceptions.js').ConstructException;
 var FRegisterConstructException = require('../lib/fexceptions.js').FRegisterConstructException;
 var FRegisterAddException = require('../lib/fexceptions.js').FRegisterAddException;
-
+var $ = require("jquery");
 /*************************************************************
  *************************************************************
  *************************************************************/
@@ -55,54 +55,72 @@ describe('[FOGLET:INIT]', function () {
 	describe('#Connection', function () {
 		this.timeout(15000);
 		it('connection return connected as status', function (done) {
-			var f = new Foglet({
-				spray: new Spray({
-					protocol:"test",
-			    webrtc:	{
-			      trickle: true,
-						iceServers: [{urls: ['stun:23.21.150.121:3478',
-							'stun:stun.l.google.com:19305',
-							'stun:stun2.l.google.com:19305',
-						 	'stun:stun3.l.google.com:19305',
-							'stun:stun4.l.google.com:19305',
-						]}]
-			    }
-				}),
-				protocol: 'test',
-				room: 'test'
-			});
-			var f1 = new Foglet({
-				spray: new Spray({
-					protocol:"test",
-			    webrtc:	{
-			      trickle: true,
-			      iceServers: [{urls: ['stun:23.21.150.121:3478',
-							'stun:stun.l.google.com:19305',
-							'stun:stun2.l.google.com:19305',
-						 	'stun:stun3.l.google.com:19305',
-							'stun:stun4.l.google.com:19305',
-						]}]
-			    }
-				}),
-				protocol: 'test',
-				room: 'test'
-			});
-			f.init();
-			f1.init();
-			// @Firefox: we are waiting for the initialization is well established.
-			setTimeout(function(){
-				f1.connection().then(function(){
-					assert(f.status, f1.status, "status need to be 'connected' !");
-					done();
-				},function(error){
-					console.log(error);
-					done();
-				});
-			}, 2000);
-			f.disconnect();
-			f1.disconnect();
-		});
-	});
+			$.ajax({
+			  url : "https://service.xirsys.com/ice",
+			  data : {
+			    ident: "folkvir",
+			    secret: "a0fe3e18-c9da-11e6-8f98-9ac41bd47f24",
+			    domain: "foglet-examples.herokuapp.com",
+			    application: "foglet-examples",
+			    room: "test",
+			    secure: 1
+			  }
+			  , success:function(response, status){
+			    console.log(status);
+			    console.log(response);
+			    /**
+			     * Create the foglet protocol.
+			     * @param {[type]} {protocol:"chat"} [description]
+			     */
+			    var iceServers = [];
+			     if(response.d.iceServers){
+			       iceServers = response.d.iceServers;
+			     }
+
+			    var f = new Foglet({
+			    	spray: new Spray({
+ 			       protocol:"sprayExample",
+ 			       webrtc:	{
+ 			         trickle: true,
+ 			         iceServers: iceServers
+ 			       }
+ 			     }),
+			    	protocol: 'sprayExample',
+			    	room: 'test'
+			    });
+
+					var f1 = new Foglet({
+			    	spray: new Spray({
+ 			       protocol:"sprayExample",
+ 			       webrtc:	{
+ 			         trickle: true,
+ 			         iceServers: iceServers
+ 			       }
+ 			     }),
+			    	protocol: 'sprayExample',
+			    	room: 'test'
+			    });
+
+					f.init();
+					f1.init();
+					// @Firefox: we are waiting for the initialization is well established.
+					setTimeout(function(){
+						f1.connection().then(function(){
+							assert(f.status, f1.status, "status need to be 'connected' !");
+							done();
+						},function(error){
+							console.log(error);
+							done();
+						});
+					}, 2000);
+					f.disconnect();
+					f1.disconnect();
+
+				}
+			});//END AJAX
+
+		});//END IT
+	});//END DESCRIBE
 });
 
 describe('[FOGLET:FREGISTER]', function () {

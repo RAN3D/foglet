@@ -51,7 +51,7 @@ module.exports = function (config) {
 		proxies : {
 			'./': 'http://localhost:3000'
 		},
-		port:3000,
+		port:3001,
 		expressHttpServer: {
 				port:4001,
         // this function takes express app object and allows you to modify it
@@ -93,8 +93,8 @@ module.exports = function (config) {
 							number--;
 						});
 					});
-					http.listen(4000, function () {
-					  console.log('Signaling server listening on port 4000');
+					http.listen(3000, function () {
+					  console.log('Signaling server listening on port 3000');
 					});
         }
     },
@@ -131,7 +131,7 @@ module.exports = function (config) {
 		// start these browsers
 		// available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
 		browsers: ['Firefox'],
-		singleRun: true,
+		singleRun: false,
 		// Concurrency level
 		// how many browser should be started simultaneous
 		concurrency: Infinity
