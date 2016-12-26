@@ -4,6 +4,8 @@ It is a Capstone Project for Fog Computing in Browsers.
 
 This project aims to provide examples for Spray-wrtc protocol created by Chat-Wane (see References).
 
+We used a list of ice servers provided by [Xirsys WebRTC Cloud](http://xirsys.com/) in order to provide functionnal examples. 
+
 ## Installation
 
 Built and test with Node :  **v7.0.0**
@@ -15,7 +17,7 @@ Assume you have node and npm (Node Packet Manager) installed :
 git clone http://github.com/folkvir/foglet.git
 cd foglet
 npm install
-npm install:all
+npm run install:all
 ```
 
 ## Build
