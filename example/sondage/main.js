@@ -35,8 +35,8 @@ $.ajax({
      });
     var foglet = new Foglet({
     	spray: spray,
-    	protocol: 'sprayExample',
-    	room: 'sondage'
+    	room: 'sondage',
+      signalingServer : "http://foglet-examples.herokuapp.com/"
     });
     /**
      * Init the foglet
