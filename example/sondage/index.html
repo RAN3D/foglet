@@ -7,16 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="/static/example/http-server/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/example/http-server/node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="/static/example/sondage/style.css">
-    <script type="text/javascript" src="/static/example/http-server/node_modules/jquery/dist/jquery.min.js"> </script>
-    <script type="text/javascript" src="/static/example/http-server/node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
+    <script type="text/javascript" src="/static/node_modules/jquery/dist/jquery.min.js"> </script>
+    <script type="text/javascript" src="/static/node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="/static/example/sondage/Pie3D.js"></script>
 
     <!-- FOGLET BUNDLES -->
-    <script type="text/javascript" src="/static/build/foglet.all.bundle.js"> </script>
+    <script type="text/javascript" src="/static/node_modules/spray-wrtc/build/spray-wrtc.bundle.js"> </script>
+    <script type="text/javascript" src="/static/node_modules/foglet-core/build/foglet.bundle.js"> </script>
     <!-- MAIN SCRIPT -->
     <script type="text/javascript" src="/static/example/sondage/main.js"> </script>
 </head>
@@ -46,9 +47,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 col-sm-4 col-xs-4 col-sm-offset-4 col-md-offset-4 col-xs-offset-4" style="padding-top:10em;text-align:center">
-		Running with <a href="https://github.com/Chat-Wane/spray-wrtc" target="_blank">SPRAY-WRTC</a>
-		</div>
+    <div class="col-md-4 col-sm-4 col-xs-4 col-sm-offset-4 col-md-offset-4 col-xs-offset-4" style="padding-top:5em;text-align:center">
+      <div class="label label-info">
+		      Using <a href="https://github.com/Chat-Wane/spray-wrtc" target="_blank">SPRAY-WRTC</a> as RPS.
+      </div>
+      <div class="label label-info">
+          Using <a href="https://github.com/folkvir/foglet-core" target="_blank">FOGLET-CORE</a> as High level API. <br/>
+      </div>
+    </div>
 	</div>
 </body>
 </html>

@@ -2,109 +2,27 @@
   "name": "foglet",
   "version": "0.0.1",
   "description": "",
-  "main": "./lib/foglet.js",
+  "main": "./http-server.js",
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
-    "test": "npm run karma",
-    "karma": "karma start karma.config.js",
-    "proper": "xo --fix ./lib/**/*.js ",
-    "cover": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
-    "install:all": "concurrently \"npm run install:spray\" \"npm run install:http\" \"npm run install:linked-data\"",
-    "install:spray": "cd ./external-lib/spray-wrtc && npm install",
-    "install:linked-data": "cd ./external-lib/Client.js-master/ && npm install",
-    "install:http": "cd ./example/http-server/ && npm install",
-    "build:all": "concurrently \"npm run build:spray\" \"npm run build:foglet\" \"npm run build:debug\"",
-    "build:foglet": "browserify -r ./lib/foglet.js:foglet -t envify -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 > ./build/foglet.all.bundle.js ",
-    "build:foglet-heroku": "browserify -r ./lib/foglet.js:foglet -t [ envify --HOST foglet-examples.herokuapp.com ] -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 > ./build/foglet.all.bundle.js ",
-    "build:debug": "browserify -r ./lib/foglet.js:foglet -t envify -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc --debug -t babelify --presets es2015 > ./build/foglet.all.bundle.debug.js  ",
-    "build:watch": "watchify -r ./lib/foglet.js:foglet -t envify -t babelify --presets es2015 -r ./external-lib/Client.js-master/ldf-client.js:ldf-client  -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 -o ./build/foglet.all.bundle.js -v -d ",
-    "build:spray": "browserify -r ./external-lib/spray-wrtc/lib/spray.js:spray-wrtc -t babelify --presets es2015 --debug > ./build/spray-wrtc.bundle.debug.js ",
-    "server": "cd example/http-server && node http-server.js",
-    "dev-all": "concurrently \"npm run server\" \"npm run build:watch\"",
-    "heroku-postbuild": "npm install && npm run install:all && npm run build:spray && npm run build:foglet-heroku"
+    "start": "node http-server.js"
   },
   "cacheDirectories": [
-    "node_modules",
-    "build"
+    "node_modules"
   ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-core": "^6.18.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2016": "^6.16.0",
-    "babel-register": "^6.18.0",
-    "babelify": "^7.3.0",
     "bootstrap": "^3.3.7",
-    "browserify": "^13.1.0",
-    "browserify-istanbul": "^2.0.0",
-    "causal-broadcast-definition": "^0.1.x",
-    "concurrently": "^3.1.0",
     "cors": "^2.8.1",
-    "envify": "^4.0.0",
-    "events": "^1.1.1",
-    "express": "^4.14.0",
+    "express": "^4.14.1",
+    "foglet-core": "^0.2.x",
+    "foglet-ndp": "^0.2.x",
     "jquery": "^3.1.1",
-    "ldf-client": "^2.0.3",
-    "q": "^1.4.1",
-    "socket.io": "^1.4.8",
-    "socket.io-client": "^1.4.8",
-    "spray-wrtc": "^0.1.x",
-    "uglifyjs": "^2.4.10",
-    "unicast-definition": "^0.1.0",
-    "util": "^0.10.3",
-    "version-vector-with-exceptions": "0.0.x"
-  },
-  "bundledDependencies": [
-    "version-vector-with-exceptions",
-    "causal-broadcast-definition",
-    "spray-wrtc"
-  ],
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "istanbul": "^0.4.5",
-    "karma": "^1.3.0",
-    "karma-browserify": "^5.1.0",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^2.0.0",
-    "karma-coverage": "^1.1.1",
-    "karma-coveralls": "^1.1.2",
-    "karma-edge-launcher": "^0.1.1",
-    "karma-express-http-server": "0.0.1",
-    "karma-firefox-launcher": "^1.0.0",
-    "karma-mocha": "^1.2.0",
-    "karma-mocha-reporter": "^2.2.0",
-    "karma-safari-launcher": "^1.0.0",
-    "karma-socketio-server": "^1.0.0",
-    "mocha": "^3.1.2",
-    "nyc": "^8.3.2",
-    "watchify": "^3.7.0",
-    "xo": "^0.17.0"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
-  },
-  "xo": {
-    "envs": [
-      "node",
-      "browser",
-      "mocha"
-    ],
-    "esnext": true,
-    "ignores": [
-      "./example/**/*.js"
-    ]
+    "socket.io": "^1.7.2",
+    "spray-wrtc": "^0.1.1"
   }
 }

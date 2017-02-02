@@ -1,6 +1,7 @@
 var Spray = require("spray-wrtc");
-var ldf = require("ldf-client");
-var Foglet = require("foglet");
+var NDP = require("foglet-ndp").NDP;
+var LaddaProtocol = require("foglet-ndp").LaddaProtocol;
+
 
 /**
  * will contains the queries in the textArea
@@ -11,8 +12,11 @@ var queries;
  */
 var queriesResults;
 var cptQuery = 0;
-var ENDPOINT = 'https://query.wikidata.org/bigdata/ldf';
-var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
+var f;
+var execution = 0;
+
+let nbNeighbours = 0;
+let receiveResult = 0;
 
 $.ajax({
   url : "https://service.xirsys.com/ice",
@@ -31,6 +35,7 @@ $.ajax({
      * Create the foglet protocol.
      * @param {[type]} {protocol:"chat"} [description]
      */
+    let iceServers;
      if(response.d.iceServers){
        iceServers = response.d.iceServers;
      }
@@ -39,53 +44,120 @@ $.ajax({
        webrtc:	{
          trickle: true,
          iceServers: iceServers
-       }
+       },
+       deltatime: 1000 * 60 * 15,
+       timeout: 1000 * 60 * 60
      });
-    foglet = new Foglet({
+    foglet = new NDP({
       spray:spray,
-      protocol:"sprayExample",
       room:"sparqldistribution",
-      ndp:{
-        ldf:ldf,
-        fragmentsClient:fragmentsClient
-      }
+      delegationProtocol: new LaddaProtocol()
     });
 		foglet.init();
-    foglet.connection();
-    /**
-     * Not usefull, it's just in case of a received message from Foglet
-     * @param  {[type]} "receive"        [description]
-     * @param  {[type]} function(message [description]
-     * @return {[type]}                  [description]
-     */
-    foglet.on("receive",function(message){
-      //console.log(message);
-    	var resultPanel = document.createElement('div');
-    	resultPanel.append('query ' + id + ' result' + '\n');
-    	document.getElementById('resultPanel').appendChild(resultPanel);
-    	resultPanel.append(JSON.stringify(result) + '\n');
+    f = foglet;
+
+    refreshConnection();
+
+    foglet.onUnicast((id, message) => {
+      if(message.type === 'request'){
+        logs('You are executing a query from a neighbour !');
+      }
     });
+
+    foglet.events.on("ndp-answer", function(message){
+      console.log(message);
+    	onReceiveAnswer(message);
+      receiveResult++;
+      logs(" receive result n°" + receiveResult);
+    });
+
 
 
 	}
 });
 
+function refreshConnection(){
+  f.connection().then(s => {
+    console.log('Your are now connected !');
+    logs('Your are now connected !');
+    updateNeighbours();
+  });
+}
+
+function updateNeighbours(){
+  receiveResult = 0;
+  const nb = foglet.getNeighbours();
+  nbNeighbours = nb.length;
+  $('#leftBottom').html(' <p> #Neighbours : ' + nbNeighbours + '</p>')
+}
+
 /**
  * convert the value and send to other browsers
  */
 function send(){
+  execution++;
+  cptQuery = 0;
+  // GET QUERIES
 	text2Object();
-	foglet.ndp.send(queries);
+
+  logs("Get queries : #" + queries.length);
+
+  // CLEAR RESULT PANEL
+  $('#resultPanel').empty();
+
+  // GET THE ENDPOINT
+  const endpoint = $('#endpoint').val();
+  logs("get endpoint : " + endpoint);
+
+  //GET THE NUMBER NEIGHBOURS TO DELEGATE
+  const delegateNumber = $('#delegateNumber').val();
+  foglet.delegationProtocol.nbDestinations = delegateNumber;
+  // SEND QUERIES
+  logs(" execution ...");
+  foglet.send(queries, endpoint);
+}
+
+function logs(message){
+  const d = new Date();
+  const format = "<span style='color:red'>[" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()+"]</span>";
+  $('#leftContent').append("<p>"+ format +"[Execution n°:" + execution + "]" + message +"</p>");
+}
+
+function createPanel(data, i, id){
+  console.log("***********************************");
+  console.log(data);
+  //console.log(i);
+  let panel = "<div class='panel panel-primary'>";
+  panel += "<div class='panel-heading' onclick=\"$('#queries_" + i + "').toggle()\">";
+  panel += "<h3 class='panel-title'>Result n°: " + i + " Done by : " + id + " (click to see more...)</h3>";
+  panel += "</div>";
+  //console.log(panel);
+  let content = "<table class='table table-responsive'>";
+  content += "<thead><th> Subject </th> <th> Predicate </th> <th> Object </th> </thead>";
+  content += "<tbody>";
+  //console.log(content);
+  for(let i = 0; i < data.length; i++){
+    content += "<tr>";
+    for(let p in data[i]){
+        content += "<td> " + data[i][p] + " </td>";
+    }
+    content += "</tr>";
+  }
+  content += "</tbody>";
+  content += "</table>";
+  panel += "<div class='panel-body' style='display:none' id='queries_" +i + "' >" + content + "</div></div>";
+  //console.log(panel);
+  $('#resultPanel').append(panel);
 }
 
 /**
  * When the browser receive an answer
  */
 function onReceiveAnswer(msg){
-	for (let i = 0; i < msg.payload.length; ++i) {
-		displayResult(msg.payload[i],cptQuery);
+	//for (let i = 0; i < msg.payload.length; ++i) {
+		createPanel(msg.payload,cptQuery, msg.id);
 		++cptQuery;
-	}
+	//}
 }
 
 /**
@@ -94,24 +166,4 @@ function onReceiveAnswer(msg){
 function text2Object(){
 	var textQueries = document.getElementById('queries').value;
 	queries = JSON.parse(textQueries);
-}
-
-/**
- * @param query the query to execute
- * @param id the index of the query
- */
-function displayResult(queryResult,id) {
-	var resultPanel = document.createElement('div');
-	resultPanel.textContent = 'query ' + id + ' result' + '\n';
-	document.getElementById('resultPanel').appendChild(resultPanel);
-	var table = document.createElement("table");
-	table.className += "resultTab";
-	for (let i = 0; i < queryResult.length; ++i) {
-		var tr = document.createElement("tr");
-		var td = document.createElement("td");
-		td.innerHTML = queryResult[i];
-		tr.appendChild(td);
-		table.appendChild(tr);
-	}
-	resultPanel.appendChild(table);
 }
