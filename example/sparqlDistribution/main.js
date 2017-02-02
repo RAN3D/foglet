@@ -18,6 +18,8 @@ var execution = 0;
 let nbNeighbours = 0;
 let receiveResult = 0;
 
+let connected = false;
+
 $.ajax({
   url : "https://service.xirsys.com/ice",
   data : {
@@ -57,10 +59,15 @@ $.ajax({
 		foglet.init();
     f = foglet;
 
-    refreshConnection();
+    setInterval(function(){
+      if(!connected){
+        refreshConnection();
+      }
+    }, 2000);
 
     foglet.onUnicast((id, message) => {
       if(message.type === 'request'){
+        updateNeighbours();
         logs('You are executing a query from a neighbour !');
       }
     });
@@ -78,11 +85,14 @@ $.ajax({
 });
 
 function refreshConnection(){
+  logs(' Waiting connection...');
   f.connection().then(s => {
     console.log('Your are now connected !');
     logs('Your are now connected !');
     updateNeighbours();
+    connected = true;
   });
+
 }
 
 function updateNeighbours(){
@@ -96,6 +106,7 @@ function updateNeighbours(){
  * convert the value and send to other browsers
  */
 function send(){
+  updateNeighbours();
   execution++;
   cptQuery = 0;
   // GET QUERIES
