@@ -2,6 +2,7 @@ var Spray = require("spray-wrtc");
 var Foglet = require("foglet");
 
 var foglet,spray,sondage,votesData;
+let f;
 /**
   Http request in order to get list of stun servers
   **/
@@ -38,6 +39,9 @@ $.ajax({
     	room: 'sondage',
       signalingServer : "https://foglet-examples.herokuapp.com/"
     });
+
+    f = foglet;
+
     /**
      * Init the foglet
      * @return {[type]} [description]

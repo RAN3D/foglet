@@ -30,6 +30,8 @@ $.ajax({
          iceServers: iceServers
        }
      });
+
+
     foglet = new Foglet({spray:spray, room:"montecarlo", signalingServer : "https://foglet-examples.herokuapp.com/"});
 		foglet.init();
 		foglet.on("receive",function(message){

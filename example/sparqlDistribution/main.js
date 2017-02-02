@@ -51,7 +51,7 @@ $.ajax({
     foglet = new NDP({
       spray:spray,
       room:"sparqldistribution",
-      signalingServer : "http://foglet-examples.herokuapp.com/",
+      signalingServer : "https://foglet-examples.herokuapp.com/",
       delegationProtocol: new LaddaProtocol()
     });
 		foglet.init();
