@@ -36,7 +36,7 @@ $.ajax({
     var foglet = new Foglet({
     	spray: spray,
     	room: 'sondage',
-      signalingServer : "http://foglet-examples.herokuapp.com/"
+      signalingServer : "https://foglet-examples.herokuapp.com/"
     });
     /**
      * Init the foglet

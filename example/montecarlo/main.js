@@ -30,7 +30,7 @@ $.ajax({
          iceServers: iceServers
        }
      });
-    foglet = new Foglet({spray:spray, room:"montecarlo", signalingServer : "http://foglet-examples.herokuapp.com/"});
+    foglet = new Foglet({spray:spray, room:"montecarlo", signalingServer : "https://foglet-examples.herokuapp.com/"});
 		foglet.init();
 		foglet.on("receive",function(message){
 		  console.log(message);
