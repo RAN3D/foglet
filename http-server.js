@@ -16,7 +16,7 @@ app.use(cors());
 app.use('/static', express.static(__dirname + "/"));
 
 app.get('/:name', function(req, res){
-  res.sendFile(path.resolve(__dirname+"/example/"+req.params.name+"/index.html"));
+  res.sendFile(path.resolve(__dirname+"/example/"+req.params.name+"/index.html?server=http://foglet-examples.herokuapp.com/"));
 });
 
 app.get('/', function(req, res){
