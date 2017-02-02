@@ -20,7 +20,7 @@
     "cors": "^2.8.1",
     "express": "^4.14.1",
     "foglet-core": "^0.2.6",
-    "foglet-ndp": "^0.2.x",
+    "foglet-ndp": "^0.2.2",
     "jquery": "^3.1.1",
     "socket.io": "^1.7.2",
     "spray-wrtc": "^0.1.1"
