@@ -7,6 +7,8 @@ var LaddaProtocol = require("foglet-ndp").LaddaProtocol;
  * will contains the queries in the textArea
  */
 var queries;
+let metadata = [];
+let metaNeighbourNumber;
 /**
  * will contains the results of each queries
  */
@@ -14,10 +16,12 @@ var queriesResults;
 var cptQuery = 0;
 var f;
 var execution = 0;
-
 let nbNeighbours = 0;
 let receiveResult = 0;
 
+// time
+const formatTime = time => `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}:${time.getMilliseconds()}`;
+let startTime, endTime;
 let connected = false;
 
 $.ajax({
@@ -73,16 +77,41 @@ $.ajax({
     });
 
     foglet.events.on("ndp-answer", function(message){
+      metadata.push(message);
       console.log(message);
     	onReceiveAnswer(message);
       receiveResult++;
       logs(" receive result n°" + receiveResult);
+      if(receiveResult === queries.length){
+        $('#resultMetadata').show();
+        endTime = formatTime(new Date());
+      }else{
+        $('#resultMetadata').hide();
+      }
     });
 
 
 
 	}
 });
+
+function getResultMetadata() {
+  let datas = {
+    executionNumber: execution,
+    neighbours : metaNeighbourNumber,
+    startTime,
+    endTime,
+    queryNumber: queries.length,
+    execution : metadata
+  };
+  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(datas, null, '\t'));
+  var meta = $('#resultMetadata');
+  console.log(meta);
+  meta.attr("href", dataStr);
+  const fileName = "metadata_"+execution+"_"+startTime.replace(':','-')+"_.json"
+  meta.attr("download", fileName);
+  meta.click();
+}
 
 function refreshConnection(){
   logs(' Waiting connection...');
@@ -106,12 +135,12 @@ function updateNeighbours(){
  * convert the value and send to other browsers
  */
 function send(){
+  metadata = [];
   updateNeighbours();
   execution++;
   cptQuery = 0;
   // GET QUERIES
 	text2Object();
-
   logs("Get queries : #" + queries.length);
 
   // CLEAR RESULT PANEL
@@ -124,14 +153,16 @@ function send(){
   //GET THE NUMBER NEIGHBOURS TO DELEGATE
   const delegateNumber = $('#delegateNumber').val();
   foglet.delegationProtocol.nbDestinations = delegateNumber;
+  metaNeighbourNumber = foglet.delegationProtocol.nbDestinations;
   // SEND QUERIES
   logs(" execution ...");
+  startTime = formatTime(new Date());
   foglet.send(queries, endpoint);
 }
 
 function logs(message){
   const d = new Date();
-  const format = "<span style='color:red'>[" + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds()+"]</span>";
+  const format = "<span style='color:red'>[" + formatTime(d) +"]</span>";
   $('#leftContent').append("<p>"+ format +"[Execution n°:" + execution + "]" + message +"</p>");
 }
 

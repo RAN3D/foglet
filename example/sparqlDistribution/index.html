@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-    <title>Sparql Distribution</title>
+    <title>Sparql Delegation</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,7 +39,7 @@
 
 	<div class="col-md-8 col-sm-8 col-xs-8">
 		<div class="col-md-12 col-sm-12 col-xs-12 alert alert-success" style="text-align: center">
-		    <h1>SPARQL Query Distribution</h1>
+		    <h1>SPARQL Query Delegation</h1>
 		</div>
 		<div class="panel panel-primary col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px;">
 			<div class="panel-heading">
@@ -75,8 +75,9 @@
             ]
 					</textarea>
 				</div>
-				<div class="col-md-2 col-sm-2 col-xs-2 col-sm-offset-5 col-md-offset-5 col-xs-offset-5">
+				<div style='text-align:center'>
 					<button onClick="send()" class="btn btn-info btn-lg">Send</button>
+          <a onClick="getResultMetadata()" class="btn btn-success btn-lg" style='display:none' id='resultMetadata'>Get metadata about results</a>
 				</div>
 			</div>
 		</div>
@@ -100,7 +101,7 @@
           Using <a href="https://github.com/folkvir/foglet-core" target="_blank">FOGLET-CORE</a> as High level API. <br/>
       </div>
       <div class="label label-info">
-          Using <a href="https://github.com/folkvir/foglet-ndp" target="_blank">FOGLET-NDP</a> as Delagation Protocol.
+          Using <a href="https://github.com/folkvir/foglet-ndp" target="_blank">FOGLET-NDP</a> as Delegation Protocol.
       </div>
     </div>
     <hr/>
