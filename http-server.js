@@ -5,6 +5,7 @@ var http = require('http').Server(app);
 var cors = require('cors');
 var io = require("socket.io")(http);
 var port = process.env.PORT || 3000;
+const _ = require('lodash');
 
 var number = 0;
 var joinningPeer = null;
@@ -36,8 +37,20 @@ io.on('connection', function(socket){
         let room = data.room;
         let offer = data.offer;
         clients[data.offer.tid] = socket ;
+
+				let c = io.sockets.adapter.rooms[room] && io.sockets.adapter.rooms[room].sockets;
+				c = _.omit(c, socket.id);
+
+				const cSize = Object.keys(c).length;
+				if(cSize > 0){
+					//Now pick a random id to send to
+					const randomInt = Math.floor(Math.random() * cSize) + 1;
+					const id = _.keys(c)[randomInt -  1];
+					let sock = io.sockets.connected[id];
+					sock.emit('new_spray', offer);
+				}
         //console.log("Emit the new offer on the room " + room + " for the socketId : " + socket.id);
-        socket.broadcast.in(room).emit("new_spray", offer);
+        //socket.broadcast.in(room).emit("new_spray", offer);
   });
   socket.on("accept", function(data){
     let room = data.room;

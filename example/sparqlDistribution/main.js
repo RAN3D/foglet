@@ -1,23 +1,22 @@
-var Spray = require("spray-wrtc");
-var NDP = require("foglet-ndp").NDP;
-var LaddaProtocol = require("foglet-ndp").LaddaProtocol;
+const Spray = require("spray-wrtc");
+const NDP = require("foglet-ndp").NDP;
+const LaddaProtocol = require("foglet-ndp").LaddaProtocol;
 
 
 /**
- * will contains the queries in the textArea
+ * letiables
  */
-var queries;
-let metadata = [];
-let metaNeighbourNumber;
-/**
- * will contains the results of each queries
- */
-var queriesResults;
-var cptQuery = 0;
-var f;
-var execution = 0;
-let nbNeighbours = 0;
-let receiveResult = 0;
+let queries = []; // Queries to execute
+let metadata = []; // Metadata array representing the query result and metadata
+let metaNeighbourNumber; // Number of neighbour choose for the delegation
+let queriesResults; // Number of result queries
+let cptQuery = 0; // Number of query to execute
+let f; // Export to the console the foglet
+let execution = 0; // Number of execution
+let nbNeighbours = 0; // Number of neighbours
+let receiveResult = 0; // Number of received result
+let waitingTimeConnection = 5000; // Time to wait before to initiate another connection
+
 
 // time
 const formatTime = time => `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}:${time.getMilliseconds()}`;
@@ -35,16 +34,11 @@ $.ajax({
     secure: 1
   }
   , success:function(response, status){
-    console.log(status);
-    console.log(response);
-    /**
-     * Create the foglet protocol.
-     * @param {[type]} {protocol:"chat"} [description]
-     */
     let iceServers;
      if(response.d.iceServers){
        iceServers = response.d.iceServers;
      }
+
      spray = new Spray({
        protocol:"sprayExample",
        webrtc:	{
@@ -54,12 +48,14 @@ $.ajax({
        deltatime: 1000 * 60 * 15,
        timeout: 1000 * 60 * 60
      });
+
     foglet = new NDP({
       spray:spray,
       room:"sparqldistribution",
       signalingServer : "https://foglet-examples.herokuapp.com/",
       delegationProtocol: new LaddaProtocol()
     });
+
 		foglet.init();
     f = foglet;
 
@@ -67,7 +63,7 @@ $.ajax({
       if(!connected){
         refreshConnection();
       }
-    }, 2000);
+    }, waitingTimeConnection);
 
     foglet.onUnicast((id, message) => {
       if(message.type === 'request'){
@@ -76,15 +72,19 @@ $.ajax({
       }
     });
 
+    //We show the button in case of error logs
+    $('#prepareMetadata').show();
+
     foglet.events.on("ndp-answer", function(message){
-      metadata.push(message);
-      console.log(message);
+      let d = Object.assign({} , message);
+      d.payload = message.payload.length;
+      metadata.push(d);
+      console.log(d);
     	onReceiveAnswer(message);
       receiveResult++;
       logs(" receive result n°" + receiveResult);
       if(receiveResult === queries.length){
-        $('#resultMetadata').show();
-        endTime = formatTime(new Date());
+        writeData();
       }else{
         $('#resultMetadata').hide();
       }
@@ -95,22 +95,31 @@ $.ajax({
 	}
 });
 
-function getResultMetadata() {
+function writeData(){
+  if(execution === 0){
+    alert('You have to execute some queries before...');
+    return;
+  }
+  hidePrepareDownload();
   let datas = {
+    fogletId : f.id,
     executionNumber: execution,
     neighbours : metaNeighbourNumber,
-    startTime,
-    endTime,
-    queryNumber: queries.length,
+    queryNumberToExecute: queries.length,
+    resultNumberReceived: metadata.length,
     execution : metadata
   };
-  var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(datas, null, '\t'));
-  var meta = $('#resultMetadata');
+  let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(datas, null, '\t'));
+  let meta = $('#resultMetadata');
   console.log(meta);
   meta.attr("href", dataStr);
-  const fileName = "metadata_"+execution+"_"+startTime.replace(':','-')+"_.json"
+  const fileName = "metadata_"+execution+"_"+formatTime(new Date()).replace(':','-')+"_.json"
   meta.attr("download", fileName);
-  meta.click();
+  $('#resultMetadata').show();
+}
+
+function hidePrepareDownload(){
+  $('#resultMetadata').hide();
 }
 
 function refreshConnection(){
@@ -156,7 +165,6 @@ function send(){
   metaNeighbourNumber = foglet.delegationProtocol.nbDestinations;
   // SEND QUERIES
   logs(" execution ...");
-  startTime = formatTime(new Date());
   foglet.send(queries, endpoint);
 }
 
@@ -178,6 +186,7 @@ function createPanel(data, i, id){
   let content = "<table class='table table-responsive'>";
   content += "<thead><th> Subject </th> <th> Predicate </th> <th> Object </th> </thead>";
   content += "<tbody>";
+  console.log(data);
   //console.log(content);
   for(let i = 0; i < data.length; i++){
     content += "<tr>";
@@ -207,6 +216,6 @@ function onReceiveAnswer(msg){
  * convert the value of the textArea into a javascript object
  */
 function text2Object(){
-	var textQueries = document.getElementById('queries').value;
+	let textQueries = document.getElementById('queries').value;
 	queries = JSON.parse(textQueries);
 }

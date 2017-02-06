@@ -44,7 +44,7 @@
 		<div class="panel panel-primary col-md-12 col-sm-12 col-xs-12" style="padding-right: 0px;padding-left: 0px;">
 			<div class="panel-heading">
 			  <h3 class="panel-title">SPARQL Queries</h3>
-        <p> This is a list of different kind of queries you can do :<a href="https://query.wikidata.org/bigdata/ldf" style="color:black">Wikidata endpoint</a> </p>
+        <p> This is a list of different kind of queries you can do: <a href="https://query.wikidata.org/bigdata/ldf" style="color:black">Wikidata endpoint</a> </p>
 			</div>
 			<div class="panel-body">
 
@@ -74,10 +74,13 @@
                " PREFIX wd: <http://www.wikidata.org/entity/> SELECT * WHERE { ?s ?p wd:Q142. ?s ?p ?o . } OFFSET 45 LIMIT 5"
             ]
 					</textarea>
+
+          <div class="label label-warning">Warning: Beware, results are shown as soon as they are received!</div>
 				</div>
 				<div style='text-align:center'>
 					<button onClick="send()" class="btn btn-info btn-lg">Send</button>
-          <a onClick="getResultMetadata()" class="btn btn-success btn-lg" style='display:none' id='resultMetadata'>Get metadata about results</a>
+          <a class="btn btn-success btn-lg" style='display:none' onclick='writeData()' id='prepareMetadata'>Prepare logs</a>
+          <a class="btn btn-warning btn-lg" style='display:none' id='resultMetadata' onclick='hidePrepareDownload()'>Download logs</a>
 				</div>
 			</div>
 		</div>
