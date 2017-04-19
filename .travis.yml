@@ -3,6 +3,7 @@ node_js: node
 
 install:
   - npm install
+  - rm -rf .gitignore
 
 deploy:
   provider: pages
