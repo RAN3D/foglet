@@ -1,10 +1,10 @@
-# Foglet [![Build Status](https://travis-ci.org/folkvir/foglet.svg?branch=master)](https://travis-ci.org/folkvir/foglet) [![Coverage Status](https://coveralls.io/repos/github/folkvir/foglet/badge.svg?branch=master)](https://coveralls.io/github/folkvir/foglet?branch=master) [![Heroku Support](https://img.shields.io/badge/Heroku-online-brightgreen.svg)](http://foglet-examples.herokuapp.com/) [![XirSys WebRTC Cloud Support](https://img.shields.io/badge/XirSys%20Cloud-used-blue.svg)](http://xirsys.com/)
+# Foglet [![Build Status](https://travis-ci.org/RAN3D/foglet.svg?branch=master)](https://travis-ci.org/RAN3D/foglet) [![Heroku Support](https://img.shields.io/badge/Heroku-online-brightgreen.svg)](http://foglet-examples.herokuapp.com/) [![XirSys WebRTC Cloud Support](https://img.shields.io/badge/XirSys%20Cloud-used-blue.svg)](http://xirsys.com/)
 
 It is a Capstone Project for Fog Computing in Browsers.
 
 This project aims to provide examples for Spray-wrtc protocol created by Chat-Wane (see References).
 
-We used a list of ice servers provided by [Xirsys WebRTC Cloud](http://xirsys.com/) in order to provide functionnal examples. 
+We used a list of ice servers provided by [Xirsys WebRTC Cloud](http://xirsys.com/) in order to provide functionnal examples.
 
 ## Installation
 
@@ -30,15 +30,7 @@ npm run build:all
 npm run build:watch
 ```
 
-The bundle provided offers you to write those requires into your browser script :
-- ``` require("foglet") ```
-- ``` require("spray-wrtc") ```
-- ``` require("ldf-client") ```
-
-
 ## Run the example
-Pre-condition: foglet.all.bundle.js built
-
 Firstly we have to run a signaling server, and an http server, we have both in one server !
 ```bash
 npm run server
@@ -66,8 +58,6 @@ System functionning :
 ```bash
 #Install all dependencies
 npm install
-#Run all commands in order to run the signaling server, the http server and the build in watch mode.
-npm run dev-all
 ```
 
 ## Write your Foglet example
@@ -75,124 +65,73 @@ npm run dev-all
 If you do not provide a list of ice servers your example will not work on the web but will work on your local network.
 Examples with iceServers are provided by us in our list of examples.
 
-But to be begin here is a simple example, after building Spray and Foglet you can write something like this :
+But to be begin here is a simple example, after building Spray and Foglet you can write something like this:
 ```javascript
      // Require at least those two libraries
-     var Spray = require('spray-wrtc');
-     var Foglet = require('foglet');
-     
-     // Construction of the network
-     var spray = new Spray({
-       protocol: '[your-protocol-name]',
-       webrtc:	{
-         trickle: true,
-         iceServers: [] // Here is your list of ice servers you have to provide !
-       }
-    });
-    
+     var Foglet = require('foglet').Foglet;
+
     // Construction of our protocol
     var foglet = new Foglet({
-    	spray: spray,
     	protocol: '[your-protocol-name]',
     	room: '[your-example-name]'
     });
-   
-    // Foglet initialization 
-    foglet.init();
-     
-    // Retreive a message send by a broadcast foglet
-    foglet.on("receive",function(message){
-      console.log(message);
-    });
+
 
     // Connect our Foglet to an example
-    foglet.connection();
-    
+    foglet.connection().then(() => {
+			console.log('You are now connected !');
+	});
+
     //Now your example is connected !
 ```
 
-If you want to use our Register Protocol you can write this (after the previous connection) :
+If you want to use our Register Protocol you can write this (after the previous connection):
 
 ```javascript
      // Create a register named sondage
     foglet.addRegister("[your-register-name]");
-    
+
     // Get the register
     var reg = foglet.getRegister("[your-register-name]");
 
-    // Listening on the signal [your-register-name]-receive where every data are sent when the register is updated. 
+    // Listening on the signal [your-register-name]-receive where every data are sent when the register is updated.
     reg.on("[your-register-name]-receive", function(data){
       console.log(data);
     });
-    
+
     // Set its value, and send it by broadcast
     var value = [0,0]
     reg.setValue(value);
-    
+
 ```
 
-If you want to use The NDP protocol (Neighbour Delegated Protocol), the protocol is integrated with foglet by default.
-So to use it write your example like this :
+If you want to use The NDP protocol (Neighbour Delegated Protocol) alias foglet-ndp ``` npm install foglet-ndp```.
+So to use it write your example like this:
 
 ```javascript
-     var Spray = require("spray-wrtc");
-     var ldf = require("ldf-client");
-     var Foglet = require("foglet");
-     
-     var ENDPOINT = 'https://query.wikidata.org/bigdata/ldf';
-     var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
-     
-     spray = new Spray({
-          protocol:"[your-protocol-name]",
-          webrtc:	{
-               trickle: true,
-               iceServers: [] // List of ice servers you have to provide
-          }
-     });
-     
-     foglet = new Foglet({
-          spray:spray,
-          protocol:"[your-protocol-name]",
-          room:"[your-example-name]",
-          ndp:{
-               ldf:ldf,
-               fragmentsClient:fragmentsClient
-          }
-     });
-     
-     foglet.init();
-     foglet.connection();
-     
-     var somethingToSend = ['query1','query2']; // The Type is only array
-     foglet.ndp.send(somethingToSend);
-     
-     // Retreive a message send by a broadcast foglet and by ndp protocol... 
-     foglet.on("receive",function(message){
-          console.log(message);
-     });
+		var Foglet = require("foglet-ndp");
+
+		var ENDPOINT = 'https://query.wikidata.org/bigdata/ldf';
+		var fragmentsClient = new ldf.FragmentsClient(ENDPOINT);
+
+		foglet = new Foglet({
+		    spray:spray,
+		    protocol:"[your-protocol-name]",
+		    room:"[your-example-name]"
+		});
+
+		foglet.init();
+		foglet.connection().then(() => {
+			console.log('You are now connected !');
+		});
+		var endpoint = 'https://localhost:5000/'
+    var somethingToSend = ['query1','query2']; // The Type is only array
+    foglet.ndp.send(somethingToSend, endpoint);
+		// Retreive a message send by a broadcast foglet and by ndp protocol...
+		foglet.on("ndp-answer",function(message){
+		    console.log(message);
+		});
 ```
-
-## Foglet.js Tests
-
-Tests runs under [Karma](https://github.com/karma-runner/karma) with [Mocha](https://github.com/mochajs/mocha) and [Chai](https://github.com/chaijs/chai)
-
-In order to run tests in test/test.js with a verification of javascript guidelines :
-```bash
-npm test
-```
-It will execute the following commands :
-```bash
-npm run karma #Will execute karma start karma.config.js
-```
-
-It will runs tests under a browser, by default : Firefox, but you can easily change it in the config file.
-
-In order to have coverage for test files with the plugin Coveralls:
-```bash
-npm run cover
-```
-It will produce coverage in the folder ./coverage.
-The coverage is available on Coveralls (see at the top of the readme)
 
 ## References
 

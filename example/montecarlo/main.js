@@ -1,5 +1,4 @@
-var Spray = require("spray-wrtc");
-var Foglet = require("foglet");
+var Foglet = require("foglet").Foglet;
 
 var foglet,spray,montecarlo;
 
@@ -23,56 +22,49 @@ $.ajax({
      if(response.d.iceServers){
        iceServers = response.d.iceServers;
      }
-     spray = new Spray({
-       protocol:"sprayExample",
-       webrtc:	{
-         trickle: true,
-         iceServers: iceServers
-       }
-     });
 
 
-    foglet = new Foglet({spray:spray, room:"montecarlo", signalingServer : "https://foglet-examples.herokuapp.com/"});
-		foglet.init();
-		foglet.on("receive",function(message){
-		  console.log(message);
-		});
+
+
+    foglet = new Foglet({room:"montecarlo", protocol:"montecarlo", signalingAdress : "https://signaling.herokuapp.com/"});
+
 		/**
 		 * Connect the client to another peer of the network.
 		 * @return {[type]} [description]
 		 */
-		 foglet.connection();
-     /**
-      * Create a register named montecarlo
-      * @param {[type]} "montecarlo" [description]
-      */
-     foglet.addRegister("montecarlo");
+		 foglet.connection().then( () => {
+			 /**
+	      * Create a register named montecarlo
+	      * @param {[type]} "montecarlo" [description]
+	      */
+	     foglet.addRegister("montecarlo");
 
-     /**
-      * Get the register
-      * @param  {[type]} "montecarlo" [description]
-      * @return {[type]}        [description]
-      */
-     montecarlo = foglet.getRegister("montecarlo");
+	     /**
+	      * Get the register
+	      * @param  {[type]} "montecarlo" [description]
+	      * @return {[type]}        [description]
+	      */
+	     montecarlo = foglet.getRegister("montecarlo");
 
-     /**
-      * Listening on the signal montecarlo-receive where every data are sent when the register is updated.
-      * @param  {[type]} "montecarlo-receive" [description]
-      * @param  {[type]} function(data  [description]
-      * @return {[type]}                [description]
-      */
-     montecarlo.on("montecarlo-receive",function(data){
-       changeData(montecarlo.getValue());
-     });
+	     /**
+	      * Listening on the signal montecarlo-receive where every data are sent when the register is updated.
+	      * @param  {[type]} "montecarlo-receive" [description]
+	      * @param  {[type]} function(data  [description]
+	      * @return {[type]}                [description]
+	      */
+	     montecarlo.on("montecarlo-receive",function(data){
+	       changeData(montecarlo.getValue());
+	     });
 
-     montecarlo.setValue([0,1]);
+	     montecarlo.setValue([0,1]);
 
-     /**
-      * init local canvas (Monte carlo graph)
-      */
-     initCanvas();
-     setInterval(drawPoints, 10);
-     setInterval(updateRegister, 4000);
+	     /**
+	      * init local canvas (Monte carlo graph)
+	      */
+	     initCanvas();
+	     setInterval(drawPoints, 10);
+	     setInterval(updateRegister, 4000);
+		 });
 	}
 });
 

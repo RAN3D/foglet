@@ -8,7 +8,7 @@
     "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
-    "start": "node http-server.js"
+    "signaling": "node node_modules/foglet-signaling-server/express-signaling-server.js"
   },
   "cacheDirectories": [
     "node_modules"
@@ -19,8 +19,8 @@
     "bootstrap": "^3.3.7",
     "cors": "^2.8.1",
     "express": "^4.14.1",
-    "foglet-core": "0.3.0 || >=0.3.0 <0.4.0",
-    "foglet-ndp": "0.3.1 || >=0.3.0 <0.4.0",
+    "foglet-core": "2.0.0",
+    "foglet-signaling-server": "^0.2.1",
     "jquery": "^3.1.1",
     "lodash": "^4.17.4",
     "socket.io": "^1.7.2",
@@ -28,5 +28,9 @@
   },
   "devDependencies": {
     "envify": "^4.0.0"
-  }
+  },
+  "bundledDependencies": [
+    "foglet-signaling-server",
+		"foglet-core"
+  ]
 }
