@@ -8,6 +8,7 @@
     "url": "https://gitlab.com/folkvir/foglet.git"
   },
   "scripts": {
+		"build": "cp -R ./node_modules/foglet-core/dist/* ./node_modules/bootstrap/dist/* ./node_modules/jquery/dist/jquery.min.js dist/",
     "signaling": "node node_modules/foglet-signaling-server/express-signaling-server.js"
   },
   "cacheDirectories": [
