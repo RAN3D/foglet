@@ -1,6 +1,15 @@
 var Foglet = require("foglet").Foglet;
 
-var foglet,spray,montecarlo;
+var foglet,spray,montecarlo, intervalFirstValue, initialized;
+
+montecarlo = new function() {
+  this.setValue = (value) => {
+    this.value = value;
+    foglet.sendBroadcast(formatMessage('update', value));
+  }
+  this.getValue = () => { return this.value }
+  this.value = [0, 1];
+};
 
 $.ajax({
   url : "https://service.xirsys.com/ice",
@@ -26,64 +35,82 @@ $.ajax({
 
 
 
-    foglet = new Foglet({room:"montecarlo", protocol:"montecarlo", signalingAdress : "https://signaling.herokuapp.com/"});
-
+    foglet = new Foglet({
+      verbose: true, // want some logs ? switch to false otherwise
+      rps: {
+        type: 'spray-wrtc',
+        options: {
+          protocol: 'montecarlo', // foglet running on the protocol foglet-example, defined for spray-wrtc
+          webrtc:	{ // add WebRTC options
+            trickle: true, // enable trickle (divide offers in multiple small offers sent by pieces)
+            iceServers : iceServers // define iceServers in non local instance
+          },
+          timeout: 2 * 60 * 1000, // spray-wrtc timeout before definitively close a WebRTC connection.
+          delta: 60 * 1000, // spray-wrtc shuffle interval
+          signaling: {
+            address: 'https://signaling.herokuapp.com/',
+            // signalingAdress: 'https://signaling.herokuapp.com/', // address of the signaling server
+            room: 'montecarlo' // room to join
+          }
+        }
+      }
+    });
+    // engage the share signaling process
+    foglet.share();
 		/**
 		 * Connect the client to another peer of the network.
 		 * @return {[type]} [description]
 		 */
 		 foglet.connection().then( () => {
-			 /**
-	      * Create a register named montecarlo
-	      * @param {[type]} "montecarlo" [description]
-	      */
-	     foglet.addRegister("montecarlo");
+       // once connected engage the process to retrieve old data
+       intervalFirstValue = setInterval(() => {
+         // send a request to only one peer
+         let randomPeer = foglet.getRandomNeighbourId();
+         console.log(randomPeer);
+         if(randomPeer) foglet.sendUnicast(randomPeer, formatMessage('request-montecarlo', {}));
+       }, 2000);
 
-	     /**
-	      * Get the register
-	      * @param  {[type]} "montecarlo" [description]
-	      * @return {[type]}        [description]
-	      */
-	     montecarlo = foglet.getRegister("montecarlo");
-
-	     /**
-	      * Listening on the signal montecarlo-receive where every data are sent when the register is updated.
-	      * @param  {[type]} "montecarlo-receive" [description]
-	      * @param  {[type]} function(data  [description]
-	      * @return {[type]}                [description]
-	      */
-	     montecarlo.on("montecarlo-receive",function(data){
-	       changeData(montecarlo.getValue());
-	     });
-
-	     montecarlo.setValue([0,1]);
-
-	     /**
-	      * init local canvas (Monte carlo graph)
-	      */
-	     initCanvas();
-	     setInterval(drawPoints, 10);
-	     setInterval(updateRegister, 4000);
 		 });
+
+     foglet.onUnicast((id, msg) => {
+       console.log('Receive unicast message: ', id, msg);
+       if(msg.type && msg.type === 'request-montecarlo'){
+         // respond with the register
+         console.log('Respond with our register value. ', id, msg);
+         foglet.sendUnicast(id, formatMessage('answer-montecarlo', montecarlo.getValue()));
+
+       } else if (msg.type && msg.type === 'answer-montecarlo') {
+         if(intervalFirstValue) clearInterval(intervalFirstValue);
+         // update the local register
+         console.log(msg.value);
+         montecarlo.value = msg.value;
+         showInterface();
+         initialized = true;
+       }
+     });
+
+     foglet.onBroadcast((id, msg) => {
+       if (initialized && msg.type && msg.type === 'update'){
+         console.log('Receive an updated value: ', msg.value);
+         montecarlo.value = msg.value;
+         changeData(msg.value);
+       }
+     });
 	}
 });
 
 
-/**
- * Not usefull, Send a message over Foglet
- * @param  {[type]} msg [description]
- * @return {[type]}     [description]
- */
-function sendMessage(msg){
-  foglet.sendMessage(msg);
+function showInterface() {
+  /**
+   * init local canvas (Monte carlo graph)
+   */
+  initCanvas();
+  setInterval(drawPoints, 10);
+  setInterval(updateRegister, 2000);
 }
 
-/**
- * Set the register and update graph
- */
-function setVotes(value){
-  montecarlo.setValue(value);
-  changeData(montecarlo.getValue());
+function formatMessage(type, value) {
+  return {type, value};
 }
 
 var localData = [0,0];

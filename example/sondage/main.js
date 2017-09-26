@@ -2,7 +2,7 @@ localStorage.debug = 'foglet-core:*';
 
 const Foglet = require('foglet').Foglet;
 
-var foglet,spray,register,votesData, svg;
+var foglet,spray,register,votesData, svg, initialized;
 let f;
 $(document).ready(function() {
 	$('#survey').hide();
@@ -105,13 +105,13 @@ $.ajax({
         // update the local register
         console.log(msg.value.sondage);
         setVotes(msg.value.sondage);
-
         showInterface();
+        initialized = true;
       }
     });
 
     f.onBroadcast((id, msg) => {
-      if (msg.type && msg.type === 'update'){
+      if (initialized && msg.type && msg.type === 'update'){
         console.log('Receive an updated value: ', msg.value.sondage);
         setVotes(msg.value.sondage);
       }
