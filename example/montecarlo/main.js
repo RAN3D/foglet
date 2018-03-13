@@ -30,6 +30,7 @@ $.ajax({
      */
     if (response.d.iceServers) {
       iceServers = response.d.iceServers
+      iceServers.shift()
       iceServers.forEach(ice => {
         console.log(ice)
         ice.urls = ice.url
