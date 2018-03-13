@@ -1,39 +1,41 @@
-var Foglet = require("foglet").Foglet;
+var Foglet = require('foglet').Foglet
 
-var foglet,spray,montecarlo, intervalFirstValue, initialized;
+var foglet, spray, montecarlo, intervalFirstValue, initialized
 
-montecarlo = new function() {
+montecarlo = new function () {
   this.setValue = (value) => {
-    this.value = value;
-    foglet.sendBroadcast(formatMessage('update', value));
+    this.value = value
+    foglet.sendBroadcast(formatMessage('update', value))
   }
   this.getValue = () => { return this.value }
-  this.value = [0, 1];
-};
+  this.value = [0, 1]
+}()
 
 $.ajax({
-  url : "https://service.xirsys.com/ice",
-  data : {
-    ident: "folkvir",
-    secret: "a0fe3e18-c9da-11e6-8f98-9ac41bd47f24",
-    domain: "foglet-examples.herokuapp.com",
-    application: "foglet-examples",
-    room: "montecarlo",
+  url: 'https://service.xirsys.com/ice',
+  data: {
+    ident: 'folkvir',
+    secret: 'a0fe3e18-c9da-11e6-8f98-9ac41bd47f24',
+    domain: 'foglet-examples.herokuapp.com',
+    application: 'foglet-examples',
+    room: 'montecarlo',
     secure: 1
-  }
-  , success:function(response, status){
-    console.log(status);
-    console.log(response);
+  },
+  success: function (response, status) {
+    console.log(status)
+    console.log(response)
     /**
      * Create the foglet protocol.
      * @param {[type]} {protocol:"chat"} [description]
      */
-     if(response.d.iceServers){
-       iceServers = response.d.iceServers;
-     }
-
-
-
+    if (response.d.iceServers) {
+      iceServers = response.d.iceServers
+      iceServers.forEach(ice => {
+        console.log(ice)
+        ice.urls = ice.url
+        delete ice.url
+      })
+    }
 
     foglet = new Foglet({
       verbose: true, // want some logs ? switch to false otherwise
@@ -43,7 +45,7 @@ $.ajax({
           protocol: 'montecarlo', // foglet running on the protocol foglet-example, defined for spray-wrtc
           webrtc:	{ // add WebRTC options
             trickle: true, // enable trickle (divide offers in multiple small offers sent by pieces)
-            iceServers : iceServers // define iceServers in non local instance
+            iceServers: iceServers // define iceServers in non local instance
           },
           timeout: 2 * 60 * 1000, // spray-wrtc timeout before definitively close a WebRTC connection.
           delta: 60 * 1000, // spray-wrtc shuffle interval
@@ -54,88 +56,85 @@ $.ajax({
           }
         }
       }
-    });
+    })
     // engage the share signaling process
-    foglet.share();
+    foglet.share()
 		/**
 		 * Connect the client to another peer of the network.
 		 * @return {[type]} [description]
 		 */
-		 foglet.connection().then( () => {
+		 foglet.connection().then(() => {
        // once connected engage the process to retrieve old data
-       intervalFirstValue = setInterval(() => {
+   intervalFirstValue = setInterval(() => {
          // send a request to only one peer
-         let randomPeer = foglet.getRandomNeighbourId();
-         console.log(randomPeer);
-         if(randomPeer) foglet.sendUnicast(randomPeer, formatMessage('request-montecarlo', {}));
-       }, 2000);
+     let randomPeer = foglet.getRandomNeighbourId()
+     console.log(randomPeer)
+     if (randomPeer) foglet.sendUnicast(randomPeer, formatMessage('request-montecarlo', {}))
+   }, 2000)
+		 })
 
-		 });
-
-     foglet.onUnicast((id, msg) => {
-       console.log('Receive unicast message: ', id, msg);
-       if(msg.type && msg.type === 'request-montecarlo'){
+    foglet.onUnicast((id, msg) => {
+      console.log('Receive unicast message: ', id, msg)
+      if (msg.type && msg.type === 'request-montecarlo') {
          // respond with the register
-         console.log('Respond with our register value. ', id, msg);
-         foglet.sendUnicast(id, formatMessage('answer-montecarlo', montecarlo.getValue()));
-
-       } else if (msg.type && msg.type === 'answer-montecarlo') {
-         if(intervalFirstValue) clearInterval(intervalFirstValue);
+        console.log('Respond with our register value. ', id, msg)
+        foglet.sendUnicast(id, formatMessage('answer-montecarlo', montecarlo.getValue()))
+      } else if (msg.type && msg.type === 'answer-montecarlo') {
+        if (intervalFirstValue) clearInterval(intervalFirstValue)
          // update the local register
-         console.log(msg.value);
-         montecarlo.value = msg.value;
-         showInterface();
-         initialized = true;
-       }
-     });
+        console.log(msg.value)
+        montecarlo.value = msg.value
+        showInterface()
+        initialized = true
+      }
+    })
 
-     foglet.onBroadcast((id, msg) => {
-       if (initialized && msg.type && msg.type === 'update'){
-         console.log('Receive an updated value: ', msg.value);
-         montecarlo.value = msg.value;
-         changeData(msg.value);
-       }
-     });
-	}
-});
+    foglet.onBroadcast((id, msg) => {
+      if (initialized && msg.type && msg.type === 'update') {
+        console.log('Receive an updated value: ', msg.value)
+        montecarlo.value = msg.value
+        changeData(msg.value)
+      }
+    })
+  }
+})
 
-
-function showInterface() {
+function showInterface () {
   /**
    * init local canvas (Monte carlo graph)
    */
-  initCanvas();
-  setInterval(drawPoints, 10);
-  setInterval(updateRegister, 2000);
+  initCanvas()
+  setInterval(drawPoints, 10)
+  setInterval(updateRegister, 2000)
 }
 
-function formatMessage(type, value) {
-  return {type, value};
+function formatMessage (type, value) {
+  return {type, value}
 }
 
-var localData = [0,0];
-var previousUpdate = [0, 0];
+var localData = [0, 0]
+var previousUpdate = [0, 0]
 
-function drawPoints() {
-	var x = Math.random() * 2 - 1;
-	var y = Math.random() * 2 - 1;
+function drawPoints () {
+  var x = Math.random() * 2 - 1
+  var y = Math.random() * 2 - 1
 
-	if (Math.pow(x, 2) + Math.pow(y, 2) < 1){
-		drawPoint(x, y, true);
-		localData[0]++;
-	} else {
-		drawPoint(x, y, false);
-	}
-	localData[1]++;
-	changeLocalData(localData);
+  if (Math.pow(x, 2) + Math.pow(y, 2) < 1) {
+    drawPoint(x, y, true)
+    localData[0]++
+  } else {
+    drawPoint(x, y, false)
+  }
+  localData[1]++
+  changeLocalData(localData)
 }
 
 /**
  * Update the register
  */
-function updateRegister() {
-	var data = montecarlo.getValue();
-	var dataToSet = [data[0]+localData[0]-previousUpdate[0], data[1]+localData[1]-previousUpdate[1]];
-	montecarlo.setValue(dataToSet);
-	previousUpdate = [localData[0], localData[1]];
+function updateRegister () {
+  var data = montecarlo.getValue()
+  var dataToSet = [data[0] + localData[0] - previousUpdate[0], data[1] + localData[1] - previousUpdate[1]]
+  montecarlo.setValue(dataToSet)
+  previousUpdate = [localData[0], localData[1]]
 }
