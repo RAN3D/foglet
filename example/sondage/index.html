@@ -21,39 +21,31 @@
     <script type="text/javascript" src="main.js"> </script>
 </head>
 
-<body class="container">
+<body>
 	<div class="container">
-		<div class="col-md-12 col-sm-12 col-xs-12 alert alert-success" style="text-align: center">
-		    <h1>Do you think that the elephant is stronger than hippopotamus ?</h1>
-		</div>
-		<div  id='survey'>
-			<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4">
-				<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
-					<button onClick="addYes()" class="btn btn-info btn-lg">YES</button>
-				</div>
-				<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
-					<button onClick="addNo()" class="btn btn-primary btn-lg">NO</button>
-				</div>
-			</div>
-			<div style="text-align: center" class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" id="chart" width="300" height="300">
-			</div>
-			<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
-				<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
-					<label id="yesLabel" class="label label-info">YES :</label>
-				</div>
-				<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
-					<label id="noLabel" class="label label-primary">NO :</label>
-				</div>
-			</div>
-		</div>
-		<div id='connection'>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12 alert alert-success" style="text-align: center">
+  		    <h1>Do you think that the elephant is stronger than hippopotamus ?</h1>
+          <div id='survey'>
+            <button onClick="addYes()" class="btn btn-info btn-lg">YES</button>
+            <button onClick="addNo()" class="btn btn-primary btn-lg">NO</button>
+      		</div>
+  		</div>
+    </div>
+    <div style="text-align: center" class="col-md-12" id="chart" width="300" height="300"></div>
+    <div class="row" id='connection'>
 			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3">
 				<h3> You are not connected to another browser for the moment.</h3>
 			</div>
-		</div>
-    <div class="col-md-4 col-sm-4 col-xs-4 col-sm-offset-4 col-md-offset-4 col-xs-offset-4" style="padding-top:5em;text-align:center">
+    </div>
+
+
+
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top:5em;text-align:center">
       <div class="label label-info">
-		      Using <a href="https://github.com/Chat-Wane/spray-wrtc" target="_blank">SPRAY-WRTC</a> as RPS.
+		      Using <a href="https://github.com/RAN3D/spray-wrtc" target="_blank">SPRAY-WRTC</a> as RPS.
       </div>
       <div class="label label-info">
           Using <a href="https://github.com/RAN3D/foglet-core" target="_blank">FOGLET-CORE</a> as High level API.

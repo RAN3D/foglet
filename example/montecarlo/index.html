@@ -15,64 +15,66 @@
     <script type="text/javascript" src="../../dist/foglet.bundle.min.js"> </script>
 </head>
 
-<body class="container">
-	<div class="container">
-		<div class="col-md-12 col-sm-12 col-xs-12 alert alert-success" style="text-align: center">
-			<h1>Pi approximation using Monte Carlo method</h1>
-		</div>
+<body>
+	<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12 alert alert-success" style="text-align: center">
+  			<h1>Pi approximation using Monte Carlo method</h1>
+  		</div>
+    </div>
+    <div class="row">
+      <div class="panel panel-primary col-md-6 col-sm-6 col-xs-6" style="padding-right: 0px;padding-left: 0px;">
+  			<div class="panel-heading">
+  			  <h3 class="panel-title">Global result</h3>
+  			</div>
+  			<div class="panel-body">
+  				<div class="pi col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+  					π ≈
+  				</div>
+  				<div id="pi-result" class="pi-result col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+  					0.00
+  				</div>
+  				<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
+  					<label id="InLabelGlobal" class="label label-info">IN :</label>
+  				</div>
+  				<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
+  					<label id="TotalLabelGlobal" class="label label-primary">TOTAL :</label>
+  				</div>
+  			</div>
+  		</div>
 
-		<div class="col-md-10 col-sm-10 col-xs-10 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
+  		<div class="panel panel-info col-md-6 col-sm-6 col-xs-6 col-md-offset-6" style="padding-right: 0px;padding-left: 0px;">
+  			<div class="panel-heading">
+  			  <h3 class="panel-title">Local calculation</h3>
+  			</div>
+  			<div class="panel-body">
+  				<div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
+  					<canvas id="MonteCarloGraph" style="border:1px solid #000000;">
+  					</canvas>
+  				</div>
+  				<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
+  					<label id="yesLabelLocal" class="label label-info">IN :</label>
+  				</div>
+  				<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
+  					<label id="noLabelLocal" class="label label-primary">TOTAL :</label>
+  				</div>
+  			</div>
+  		</div>
+    </div>
 
-			<div class="panel panel-primary col-md-5 col-sm-5 col-xs-5" style="padding-right: 0px;padding-left: 0px;">
-				<div class="panel-heading">
-				  <h3 class="panel-title">Global result</h3>
-				</div>
-				<div class="panel-body">
-					<div class="pi col-md-12 col-sm-12 col-xs-12" style="text-align: center">
-						π ≈
-					</div>
-					<div id="pi-result" class="pi-result col-md-12 col-sm-12 col-xs-12" style="text-align: center">
-						0.00
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
-						<label id="InLabelGlobal" class="label label-info">IN :</label>
-					</div>
-					<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
-						<label id="TotalLabelGlobal" class="label label-primary">TOTAL :</label>
-					</div>
-				</div>
-			</div>
 
-			<div class="panel panel-info col-md-5 col-sm-5 col-xs-5 col-md-offset-2 col-sm-offset-2 col-xs-offset-2" style="padding-right: 0px;padding-left: 0px;">
-				<div class="panel-heading">
-				  <h3 class="panel-title">Local calculation</h3>
-				</div>
-				<div class="panel-body">
-					<div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center">
-						<canvas id="MonteCarloGraph" style="border:1px solid #000000;">
-						</canvas>
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-4" style="text-align: center">
-						<label id="yesLabelLocal" class="label label-info">IN :</label>
-					</div>
-					<div class="col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 col-xs-4 col-xs-offset-4" style="text-align: center">
-						<label id="noLabelLocal" class="label label-primary">TOTAL :</label>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<div class="col-md-4 col-sm-4 col-xs-4 col-sm-offset-4 col-md-offset-4 col-xs-offset-4" style="padding-top:10em;text-align:center">
-		Pi approximation with <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method" target="_blank">Monte Carlo method</a>
-		</div>
-    <div class="col-md-4 col-sm-4 col-xs-4 col-sm-offset-4 col-md-offset-4 col-xs-offset-4" style="padding-top:5em;text-align:center">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12" style="padding-top:10em;text-align:center">
+  		Pi approximation with <a href="https://en.wikipedia.org/wiki/Monte_Carlo_method" target="_blank">Monte Carlo method</a>
       <div class="label label-info">
-		      Using <a href="https://github.com/RAN3D/spray-wrtc" target="_blank">SPRAY-WRTC</a> as RPS.
+          Using <a href="https://github.com/RAN3D/spray-wrtc" target="_blank">SPRAY-WRTC</a> as RPS.
       </div>
       <div class="label label-info">
           Using <a href="https://github.com/RAN3D/foglet-core" target="_blank">FOGLET-CORE</a> as High level API.
       </div>
+  		</div>
     </div>
+
 	</div>
 </body>
 <script src="dataIntegration.js"></script>

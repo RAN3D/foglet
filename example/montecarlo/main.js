@@ -1,6 +1,4 @@
-var Foglet = require('foglet').Foglet
-
-var foglet, spray, montecarlo, intervalFirstValue, initialized
+var Foglet = foglet.Foglet, spray, montecarlo, intervalFirstValue, initialized
 
 montecarlo = new function () {
   this.setValue = (value) => {
@@ -12,33 +10,13 @@ montecarlo = new function () {
 }()
 
 $.ajax({
-  url: 'https://service.xirsys.com/ice',
-  data: {
-    ident: 'folkvir',
-    secret: 'a0fe3e18-c9da-11e6-8f98-9ac41bd47f24',
-    domain: 'foglet-examples.herokuapp.com',
-    application: 'foglet-examples',
-    room: 'montecarlo',
-    secure: 1
-  },
+  url: 'https://signaling.herokuapp.com/ice',
   success: function (response, status) {
     console.log(status)
     console.log(response)
-    /**
-     * Create the foglet protocol.
-     * @param {[type]} {protocol:"chat"} [description]
-     */
-    if (response.d.iceServers) {
-      iceServers = response.d.iceServers
-      iceServers.shift()
-      iceServers.forEach(ice => {
-        console.log(ice)
-        ice.urls = ice.url
-        delete ice.url
-      })
-    }
 
-    foglet = new Foglet({
+
+    foglet = new foglet.Foglet({
       verbose: true, // want some logs ? switch to false otherwise
       rps: {
         type: 'spray-wrtc',
@@ -46,7 +24,7 @@ $.ajax({
           protocol: 'montecarlo', // foglet running on the protocol foglet-example, defined for spray-wrtc
           webrtc:	{ // add WebRTC options
             trickle: true, // enable trickle (divide offers in multiple small offers sent by pieces)
-            iceServers: iceServers // define iceServers in non local instance
+            config: {iceServers: response.ice} // define iceServers in non local instance
           },
           timeout: 2 * 60 * 1000, // spray-wrtc timeout before definitively close a WebRTC connection.
           delta: 60 * 1000, // spray-wrtc shuffle interval

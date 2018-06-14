@@ -1,6 +1,6 @@
 localStorage.debug = 'foglet-core:*'
 
-const Foglet = require('foglet').Foglet
+const Foglet = foglet.Foglet
 
 var foglet, spray, register, votesData, svg, initialized
 let f
@@ -32,48 +32,27 @@ Http request in order to get list of stun servers
 **/
 var iceServers = []
 $.ajax({
-  url: 'https://service.xirsys.com/ice',
-  data: {
-    ident: 'folkvir',
-    secret: 'a0fe3e18-c9da-11e6-8f98-9ac41bd47f24',
-    domain: 'foglet-examples.herokuapp.com',
-    application: 'foglet-examples',
-    room: 'sondage',
-    secure: 1
-  },
+  url: 'https://signaling.herokuapp.com/ice',
   success: function (response, status) {
     console.log(status)
     console.log(response)
-    /**
-     * Create the foglet protocol.
-     * @param {[type]} {protocol:"chat"} [description]
-     */
-    if (response.d.iceServers) {
-      iceServers = response.d.iceServers
-      iceServers.shift()
-      iceServers.forEach(ice => {
-        console.log(ice)
-        ice.urls = ice.url
-        delete ice.url
-      })
-    }
 
     f = new Foglet({
       verbose: true, // want some logs ? switch to false otherwise
       rps: {
         type: 'spray-wrtc',
         options: {
-          protocol: 'survey', // foglet running on the protocol foglet-example, defined for spray-wrtc
+          protocol: 'survey-second', // foglet running on the protocol foglet-example, defined for spray-wrtc
           webrtc:	{ // add WebRTC options
             trickle: true, // enable trickle (divide offers in multiple small offers sent by pieces)
-            iceServers: iceServers // define iceServers in non local instance
+            config: {iceServers: response.ice} // define iceServers in non local instance
           },
           timeout: 2 * 60 * 1000, // spray-wrtc timeout before definitively close a WebRTC connection.
           delta: 60 * 1000, // spray-wrtc shuffle interval
           signaling: {
             address: 'https://signaling.herokuapp.com/',
             // signalingAdress: 'https://signaling.herokuapp.com/', // address of the signaling server
-            room: 'survey' // room to join
+            room: 'survey-second' // room to join
           }
         }
       }
