@@ -1,0 +1,22 @@
+{
+  "name": "foglet",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/folkvir/foglet.git"
+  },
+  "scripts": {
+    "build": "cp -R ./node_modules/foglet-core/dist/* ./node_modules/bootstrap/dist/* ./node_modules/jquery/dist/jquery.min.js dist/"
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "author": "Grall Arnaud (Folkvir)",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "foglet-core": "^5.0.0",
+    "jquery": "^3.3.1"
+  }
+}
