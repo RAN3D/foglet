@@ -1,27 +1,45 @@
-# Foglet [![Build Status](https://travis-ci.org/RAN3D/foglet.svg?branch=master)](https://travis-ci.org/RAN3D/foglet) [![Heroku Support](https://img.shields.io/badge/Heroku-online-brightgreen.svg)](http://foglet-examples.herokuapp.com/) [![XirSys WebRTC Cloud Support](https://img.shields.io/badge/XirSys%20Cloud-used-blue.svg)](http://xirsys.com/)
+# [Vue Light Bootstrap Dashboard](http://vuejs.creative-tim.com/vue-light-bootstrap-dashboard) [![version][version-badge]][CHANGELOG] [![license][license-badge]][LICENSE]
 
-This project aims to provide examples for [foglet-core](http://github.com/ran3d/foglet-core/)
+> Admin dashboard based on light bootstrap dashboard UI template + vue-router
 
-We used a list of ice servers provided by [Xirsys WebRTC Cloud](http://xirsys.com/) in order to provide functionnal examples on the web.
+This project is a vue version of [Light bootstrap dashboard](https://www.creative-tim.com/product/light-bootstrap-dashboard)
+designed for vue js. The dashboard includes Bootstrap 4, vue-router, chartist, google-maps and several other plugins/components.
 
+Check the [Live Demo here](http://vuejs.creative-tim.com/vue-light-bootstrap-dashboard).
 
-## References
+![](static/Dashboard.PNG)
+## :rocket: Getting started
 
-**T. Minier** alias [Callidon](https://github.com/Callidon) :  for contributions on ES6 references and testing tools.
+Vue Light Bootstrap Dashboard is built on top of Bootstrap 4, Vuejs and Vue-router. To get started do the following steps:
+1. Download the project
+2. Make sure you have node.js (https://nodejs.org/en/) installed
+3. Type `npm install` in the source folder where `package.json` is located
+4. Type `npm run dev` to start the development server
 
-**Chat-Wane** :
-Keywords: Random peer sampling, adaptive, browser-to-browser communication, WebRTC
+The repo uses [vue-cli](https://github.com/vuejs/vue-cli) scaffolding which takes care of the development setup with webpack and all the necessary modern tools to make web development faster and easier.
 
-This project aims to provide a WebRTC implementation of Spray.
+## [Documentation](https://demos.creative-tim.com/vue-light-bootstrap-dashboard/documentation/#/buttons)
 
-Spray is a random peer sampling protocol [1] inspired by both Cyclon [2] and Scamp [3]. It adapts the partial view of each member to the network size using local knowledge only. Therefore, without any configurations, each peer automatically adjust itself to the need of the network.
+## :cloud: Build Setup
 
-https://github.com/Chat-Wane/spray-wrtc/
+### install dependencies
+`npm install`
+### serve with hot reload at localhost:8000
+`npm run dev`
+### build for production with minification
+`npm run build`
+### run unit tests
+`npm run unit`
+### run and watch unit tests
+`npm run unit:watch`
 
-[1] M. Jelasity, S. Voulgaris, R. Guerraoui, A.-M. Kermarrec, and M. Van Steen. Gossip-based peer sampling. ACM Transactions on Computer Systems (TOCS), 25(3):8, 2007.
+## :clipboard: Contribution guide
+* `npm install` or `yarn install`
+* Please don't use jQuery or jQuery based plugins since there are many pure Vue alternatives
 
-[2] S. Voulgaris, D. Gavidia, and M. van Steen. Cyclon: Inexpensive membership management for unstructured p2p overlays. Journal of Network and Systems Management, 13(2):197–217, 2005.
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-[3] A. Ganesh, A.-M. Kermarrec, and L. Massoulié. Peer-to-peer membership management for gossip-based protocols. IEEE Transactions on Computers, 52(2):139–149, Feb 2003.
-
-[4] A. Montresor and M. Jelasity. Peersim: A scalable P2P simulator. Proc. of the 9th Int. Conference on Peer-to-Peer (P2P’09), pages 99–100, Seattle, WA, Sept. 2009.
+[CHANGELOG]: ./CHANGELOG.md
+[LICENSE]: ./LICENSE.md
+[version-badge]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[license-badge]: https://img.shields.io/badge/license-MIT-blue.svg
