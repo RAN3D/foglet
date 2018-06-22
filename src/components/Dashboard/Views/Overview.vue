@@ -17,7 +17,7 @@
   </div>
 </template>
 <script>
-  import Card from 'src/components/UIComponents/Cards/Card.vue'
+  import Card from '../../UIComponents/Cards/Card.vue'
   import VueMarkdown from 'vue-markdown'
   export default {
     components: {

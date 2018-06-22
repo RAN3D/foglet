@@ -48,7 +48,7 @@
   </div>
 </template>
 <script>
-  import Card from 'src/components/UIComponents/Cards/Card.vue'
+  import Card from '../UIComponents/Cards/Card.vue'
   import Chart from 'Chart.js'
 
   export default {

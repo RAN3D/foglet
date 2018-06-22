@@ -43,7 +43,7 @@
 </template>
 <script>
   import 'es6-promise/auto'
-  import Card from 'src/components/UIComponents/Cards/Card.vue'
+  import Card from '../UIComponents/Cards/Card.vue'
   import 'highlight.js/styles/github.css'
 
   // import { mapState } from 'vuex'

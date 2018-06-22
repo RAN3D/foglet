@@ -3,8 +3,8 @@ import DashboardLayout from '../components/Dashboard/Layout/DashboardLayout.vue'
 import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 
 // Admin pages
-import Overview from 'src/components/Dashboard/Views/Overview.vue'
-import SimpleExamples from 'src/components/Dashboard/Views/SimpleExamples.vue'
+import Overview from '../components/Dashboard/Views/Overview.vue'
+import SimpleExamples from '../components/Dashboard/Views/SimpleExamples.vue'
 
 const routes = [
   {

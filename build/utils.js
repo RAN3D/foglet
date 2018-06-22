@@ -44,13 +44,24 @@ exports.cssLoaders = function (options) {
     }
   }
 
-  // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+  let sassOptions = {
+    indentedSyntax: true
+  }
+  let scssOptions = {
+    includePaths: [
+      './src/assets/'
+    ],
+    data: '@import "./src/assets/sass/light-bootstrap-dashboard";'
+  }
+
+  // http://vuejs.github.io/vue-loader/en/configurations/extract-css.html
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
     less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    sass: generateLoaders('sass', sassOptions),
+    //  Make custom SASS available to all components https://github.com/webpack-contrib/sass-loader
+    scss: generateLoaders('sass', scssOptions),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus')
   }

@@ -3,9 +3,9 @@ import Vuex from 'vuex'
 import config from './config.json'
 import { Foglet } from 'foglet-core'
 import Uniqid from 'uniqid'
-import ChatStore from 'src/components/Examples/store/chat-store'
-import SondageStore from 'src/components/Examples/store/sondage-store'
-import MontecarloStore from 'src/components/Examples/store/montecarlo-store'
+import ChatStore from './components/Examples/store/chat-store'
+import SondageStore from './components/Examples/store/sondage-store'
+import MontecarloStore from './components/Examples/store/montecarlo-store'
 
 let fog
 export function createStore () {

@@ -15,17 +15,17 @@
   </div>
 </template>
 <script>
-  import Card from 'src/components/UIComponents/Cards/Card.vue'
-  import Sondage from 'src/components/Examples/Sondage.vue'
-  const SondageRaw = require('!!raw-loader!src/components/Examples/Sondage.vue')
-  const SondageStoreRaw = require('!!raw-loader!src/components/Examples/store/sondage-store.js')
-  import Chat from 'src/components/Examples/Chat.vue'
-  const ChatRaw = require('!!raw-loader!src/components/Examples/Chat.vue')
-  const ChatStoreRaw = require('!!raw-loader!src/components/Examples/store/chat-store.js')
-  import Montecarlo from 'src/components/Examples/Montecarlo.vue'
-  const MontecarloRaw = require('!!raw-loader!src/components/Examples/Montecarlo.vue')
-  const MontecarloStoreRaw = require('!!raw-loader!src/components/Examples/store/montecarlo-store.js')
-  import Video from 'src/components/Examples/Video.vue'
+  import Card from '../../UIComponents/Cards/Card.vue'
+  import Sondage from '../../Examples/Sondage.vue'
+  const SondageRaw = require('!!raw-loader!../../Examples/Sondage.vue')
+  const SondageStoreRaw = require('!!raw-loader!../../Examples/store/sondage-store.js')
+  import Chat from '../../Examples/Chat.vue'
+  const ChatRaw = require('!!raw-loader!../../Examples/Chat.vue')
+  const ChatStoreRaw = require('!!raw-loader!../../Examples/store/chat-store.js')
+  import Montecarlo from '../../Examples/Montecarlo.vue'
+  const MontecarloRaw = require('!!raw-loader!../../Examples/Montecarlo.vue')
+  const MontecarloStoreRaw = require('!!raw-loader!../../Examples/store/montecarlo-store.js')
+  import Video from '../../Examples/Video.vue'
   export default {
     components: {
       Card,
