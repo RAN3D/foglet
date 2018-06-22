@@ -35,7 +35,7 @@ export function init () {
             timeout: 2 * 60 * 1000, // spray-wrtc timeout before definitively close a WebRTC connection.
             delta: 60 * 1000, // spray-wrtc shuffle interval
             signaling: {
-              address: 'http://' + config.signaling,
+              address: config.signaling,
               // signalingAdress: 'https://signaling.herokuapp.com/', // address of the signaling server
               room: 'foglet-core-website' // room to join
             }
@@ -64,7 +64,7 @@ export function init () {
 function getIces () {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: 'http://' + config.signaling + '/ice',
+      url: config.signaling + '/ice',
       success: function (response, status) {
         console.log(status)
         console.log(response)
