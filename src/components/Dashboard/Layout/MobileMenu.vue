@@ -12,7 +12,7 @@
     </li>
     <li class="nav-item">
       <a :href="config.github" class="nav-link">
-        <img src='/static/img/Github-Mark-Light-32px.png' width=auto height=auto />
+        <img src='/static/img/GitHub-Mark-Light-32px.png' width=auto height=auto />
         Github link
       </a>
     </li>
