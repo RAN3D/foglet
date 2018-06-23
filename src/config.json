@@ -1,5 +1,5 @@
 {
-	"signaling": "https://foglet.herokuapp.com",
+	"signaling": "http://localhost:8000",
 	"gettingStarted": "https://foglet.readthedocs.io/en/latest/getting_started.html",
 	"api": "https://ran3d.github.io/foglet-core",
 	"github": "https://github.com/ran3d/foglet-core"

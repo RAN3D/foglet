@@ -63,7 +63,7 @@
   "scripts": {
     "start": "npm run build:prod && npm run prod",
     "build:dev": "HOST=http://localhost PORT=8000 node ./build/dev-server.js",
-    "build:devprod": "HOST=http://localhost PORT=8000 npm run build:prod && npm run prod",
+    "build:devprod": "HOST=http://localhost PORT=8000 node ./build/build.js && npm run prod",
     "build:prod": "HOST=https://foglet.herokuapp.com node ./build/build.js",
     "prod": "node build/prod-server.js"
   },
