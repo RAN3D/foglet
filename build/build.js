@@ -13,6 +13,17 @@ var webpackConfig = require('./webpack.prod.config')
 var spinner = ora('building for production...')
 spinner.start()
 
+// default port where dev server listens for incoming traffic
+var host = process.env.HOST || 'http://localhost'
+var port = parseInt(process.env.PORT) || -1
+console.log('Host: ', host)
+console.log('Port: ', port)
+var appConfig = require('../src/config.json')
+appConfig.signaling = `${host}${(port !== -1)?`:${port}`:''}` 
+console.log('Signaling server: ', appConfig.signaling)
+require('fs').writeFileSync(require('path').join(__dirname, '../src/config.json'), JSON.stringify(appConfig, null, "\t"))
+console.log(appConfig)
+
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
   webpack(webpackConfig, function (err, stats) {
